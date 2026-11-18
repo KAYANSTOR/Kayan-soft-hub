@@ -1,0 +1,6 @@
+{
+  "name": "Kayan Soft Hub",
+  "description": "منصة الإدارة المركزية لمؤسسة كيان سوفت للبرمجيات والحلول الذكية — إدارة المنتجات والاشتراكات، نظام إدارة المحتوى CMS، وإدارة العملاء CRM.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

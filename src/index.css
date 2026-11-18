@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+:root {
+  --color-1: #211D25;
+  --color-2: #423441;
+  --color-3: #705267;
+  --color-4: #987988;
+  --color-5: #C5AEB5;
+  --color-6: #EEE2DF;
+
+  --surface-canvas: #F6F1EF;
+  --surface-card: #FFFFFF;
+  --surface-muted: #EEE2DF;
+  --border-hairline: #D8C7CD;
+  --text-primary: #211D25;
+  --text-secondary: #423441;
+  --text-muted: #6A5866;
+}
+
+@layer base {
+  html {
+    font-family: "Tajawal", system-ui, -apple-system, sans-serif;
+    color: var(--color-1);
+    background-color: var(--surface-canvas);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: "Cairo", "Tajawal", system-ui, sans-serif;
+    text-wrap: balance;
+  }
+
+  .font-mono-nums {
+    font-family: "IBM Plex Mono", "Cairo", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--color-3);
+    outline-offset: 2px;
+  }
+}
+
+@media print {
+  aside,
+  header,
+  .no-print {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+}

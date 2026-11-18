@@ -1,0 +1,1739 @@
+{
+  "products": [
+    {
+      "id": "prod-krotak-pro",
+      "code": "krotak-pro",
+      "name": "كروتك برو",
+      "description": "تطبيق أندرويد متكامل لإدارة شبكات الإنترنت والبطاقات والكروت والمحافظ بنمط تشغيل محلي SQLite (Drift) ومزامنة اختيارية.",
+      "repository": "KAYANSTOR/Krotak-Pro",
+      "defaultBranch": "main",
+      "techStack": [
+        "Flutter",
+        "Dart",
+        "SQLite / Drift",
+        "REST API"
+      ],
+      "websiteUrl": "https://kayansoft.sa/products/krotak-pro",
+      "adminUrl": "https://krotic-admin.kayansoft.sa",
+      "supportUrl": "https://support.kayansoft.sa/krotak",
+      "sourceOfTruth": "Krotic Admin API (server/_lib/accountAccess.js)",
+      "auditStatus": "ready",
+      "auditSummary": "قابل للتكامل عبر عقود contracts/schemas وواجهة accountAccess المعتمدة دون منح مفاتيح Firestore الإدارية.",
+      "connectorHealth": "connected",
+      "serviceActive": true,
+      "lastSyncAt": "2026-11-17T10:15:00.000Z",
+      "syncStatus": "success",
+      "allowedSharedFields": [
+        "external_account_id",
+        "network_id",
+        "subscriber_display_name",
+        "account_status",
+        "subscription_plan",
+        "license_status",
+        "device_health_summary"
+      ],
+      "excludedOperationalModules": [
+        "توليد الكروت",
+        "المخزون",
+        "الراوترات",
+        "الرسائل",
+        "النسخ الاحتياطي المحلي net.sqlite"
+      ],
+      "privacyNotes": "لا يتصل المركز بملف net.sqlite أو بمفاتيح Firestore الإدارية مباشرة.",
+      "marketingVisible": true,
+      "marketingTagline": "إدارة شبكات الواي فاي ونقاط البيع والبطاقات بكفاءة عالية واستقرار دون اتصال."
+    },
+    {
+      "id": "prod-krotic-admin",
+      "code": "krotic-admin",
+      "name": "لوحة كروتك",
+      "description": "لوحة الإدارة التشغيلية لشبكات كروتك، وإدارة الأجهزة والنبضات والتفعيلات والتسويات المالية.",
+      "repository": "KAYANSTOR/Krotic-Admin-App",
+      "defaultBranch": "main",
+      "techStack": [
+        "React",
+        "Vite",
+        "Vercel API",
+        "Firebase Firestore"
+      ],
+      "websiteUrl": "https://krotic-admin.kayansoft.sa",
+      "adminUrl": "https://krotic-admin.kayansoft.sa/dashboard",
+      "supportUrl": "https://support.kayansoft.sa/krotic-admin",
+      "sourceOfTruth": "server/_lib/accountAccess.js",
+      "auditStatus": "ready",
+      "auditSummary": "يتم استهلاك منطق حالة الوصول عبر نقطة نهاية API معتمدة وإعادة استخدامه دون نسخه داخل المركز.",
+      "connectorHealth": "connected",
+      "serviceActive": true,
+      "lastSyncAt": "2026-11-17T10:15:00.000Z",
+      "syncStatus": "success",
+      "allowedSharedFields": [
+        "network_id",
+        "device_binding_status",
+        "heartbeat_last_seen",
+        "account_access_state"
+      ],
+      "excludedOperationalModules": [
+        "التسويات التشغيلية",
+        "نبضات الأجهزة التفصيلية",
+        "إدارة نقاط البيع"
+      ],
+      "privacyNotes": "وصول مقيد عبر موصل API رسمي مع منع استخدام مفاتيح Firestore الإدارية.",
+      "marketingVisible": false,
+      "marketingTagline": "البنية السحابية لإدارة تراخيص وتفعيلات شبكات كروتك."
+    },
+    {
+      "id": "prod-qatshe",
+      "code": "qatshe",
+      "name": "قاتشي",
+      "description": "منصة PWA متعددة المؤسسات لإدارة الطلبات والتجار والتوصيل والمزامنة التشغيلية.",
+      "repository": "KAYANSTOR/Qatshe",
+      "defaultBranch": "main",
+      "techStack": [
+        "React",
+        "Vite",
+        "Express",
+        "TypeScript",
+        "PostgreSQL",
+        "Dexie IndexedDB"
+      ],
+      "websiteUrl": "https://qatshe.kayansoft.sa",
+      "adminUrl": "https://qatshe.kayansoft.sa/admin",
+      "supportUrl": "https://support.kayansoft.sa/qatshe",
+      "sourceOfTruth": "PostgreSQL Production Store (قيد التحقق الأمني)",
+      "auditStatus": "needs_audit",
+      "auditSummary": "أولوية مرتفعة: يحتاج إلى تدقيق تقني وأمني للتحقق من اعتماد PostgreSQL في الإنتاج بدلاً من .qatshi-sync-store.json ومخازن الذاكرة.",
+      "connectorHealth": "degraded",
+      "serviceActive": true,
+      "lastSyncAt": "2026-11-17T08:40:00.000Z",
+      "syncStatus": "warning",
+      "allowedSharedFields": [
+        "tenant_id",
+        "merchant_org_name",
+        "subscription_tier",
+        "subscription_status"
+      ],
+      "excludedOperationalModules": [
+        "الطلبات اليومية",
+        "التجار التشغيليون",
+        "حركات التوصيل",
+        "بيانات Dexie المحلية"
+      ],
+      "privacyNotes": "موقوف التعديل التلقائي لحالة الاشتراكات حتى إغلاق تدقيق عزل المؤسسات ومصدر الحقيقة.",
+      "marketingVisible": true,
+      "marketingTagline": "نظام إدارة الطلبات والتوصيل المتعدد للمتاجر والمطاعم وشركات الشحن."
+    },
+    {
+      "id": "prod-kayan-ai",
+      "code": "kayan-ai",
+      "name": "كيان AI",
+      "description": "منصة أتمتة المحادثات والوكلاء الأذكياء متعددة القنوات مع تكاملات Stripe وTwilio وGemini وVapi.",
+      "repository": "KAYANSTOR/AI",
+      "defaultBranch": "main",
+      "techStack": [
+        "Next.js 16",
+        "React 19",
+        "TypeScript",
+        "PostgreSQL + RLS",
+        "Stripe"
+      ],
+      "websiteUrl": "https://ai.kayansoft.sa",
+      "adminUrl": "https://ai.kayansoft.sa/workspace",
+      "supportUrl": "https://support.kayansoft.sa/kayan-ai",
+      "sourceOfTruth": "Stripe Webhooks + PostgreSQL Account Status",
+      "auditStatus": "ready",
+      "auditSummary": "بنية ناضجة تدعم RLS وتشفير AES-256-GCM؛ يلتزم المركز باحترام Stripe كمصدر فوترة دون إنشاء نظام فوترة موازٍ.",
+      "connectorHealth": "connected",
+      "serviceActive": true,
+      "lastSyncAt": "2026-11-17T10:20:00.000Z",
+      "syncStatus": "success",
+      "allowedSharedFields": [
+        "org_id",
+        "org_name",
+        "subscription_status",
+        "stripe_plan_tier",
+        "renewal_date",
+        "usage_quota_summary"
+      ],
+      "excludedOperationalModules": [
+        "المحادثات",
+        "أسرار القنوات AES-256-GCM",
+        "قاعدة المعرفة",
+        "System Prompts"
+      ],
+      "privacyNotes": "لا يتم مشاركة أسرار المصادقة أو مفاتيح القنوات أو نصوص المحادثات مع المركز.",
+      "marketingVisible": true,
+      "marketingTagline": "منصة الوكلاء الأذكياء لخدمة العملاء والمبيعات عبر واتساب والصوت والموقع."
+    },
+    {
+      "id": "prod-almothfin",
+      "code": "almothfin",
+      "name": "نظام الموظفين",
+      "description": "نظام إدارة شؤون العمال والحضور اليومي والرواتب والسلف مع تحليل نصوص الحضور العربية ودعم العمل دون اتصال.",
+      "repository": "KAYANSTOR/Almothfin",
+      "defaultBranch": "main",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Firebase Firestore",
+        "PWA"
+      ],
+      "websiteUrl": "https://almothfin.kayansoft.sa",
+      "adminUrl": "https://almothfin.kayansoft.sa/app",
+      "supportUrl": "https://support.kayansoft.sa/almothfin",
+      "sourceOfTruth": "حالة المنتج الداخلية (بانتظار حسم المصادقة والنموذج التجاري)",
+      "auditStatus": "restricted_privacy",
+      "auditSummary": "مقيد الخصوصية: يلزم حسم المصادقة الفعلية وقواعد Firestore وعزل المؤسسات وتحديد نموذج الاشتراك قبل نقل أي بيانات مالية أو شخصية.",
+      "connectorHealth": "connected",
+      "serviceActive": true,
+      "lastSyncAt": "2026-11-17T07:10:00.000Z",
+      "syncStatus": "warning",
+      "allowedSharedFields": [
+        "org_id",
+        "org_title",
+        "license_tier",
+        "account_active_flag"
+      ],
+      "excludedOperationalModules": [
+        "الرواتب",
+        "السلف",
+        "السجلات اليومية",
+        "كشوفات العمال",
+        "تحليل الحضور"
+      ],
+      "privacyNotes": "بيانات الرواتب والسلف والحضور محجوبة افتراضياً ولا تُنقل إلى Kayan Soft Hub.",
+      "marketingVisible": true,
+      "marketingTagline": "تنظيم حضور العاملين واحتساب الرواتب والسلف وتقارير PDF بسهولة تامة."
+    }
+  ],
+  "subscribers": [
+    {
+      "id": "subr-101",
+      "displayName": "مؤسسة ركائز للاتصالات",
+      "organizationName": "مؤسسة ركائز للاتصالات وتقنية الشبكات",
+      "email": "ops@rakaiz-net.com",
+      "phone": "+966504112233",
+      "country": "السعودية",
+      "city": "الرياض",
+      "notes": [
+        "عميل استراتيجي منذ 2024، يستخدم كروتك برو وكيان AI بحسابين منفصلين."
+      ],
+      "createdAt": "2024-06-12T09:00:00.000Z",
+      "linkedAccounts": [
+        {
+          "id": "ext-1",
+          "productId": "prod-krotak-pro",
+          "productName": "كروتك برو",
+          "externalAccountId": "KRT-NET-8821",
+          "externalTenantCode": "NET-RIYADH-01",
+          "accountDisplayName": "شبكة ركائز الرئيسية",
+          "accountStatus": "active",
+          "licenseStatus": "valid",
+          "deviceStatus": "4 أجهزة مفعلة · آخر نبضة قبل 6 دقائق",
+          "sourceOfTruth": "Krotic Admin API",
+          "lastSyncedAt": "2026-11-17T10:15:00.000Z"
+        },
+        {
+          "id": "ext-2",
+          "productId": "prod-kayan-ai",
+          "productName": "كيان AI",
+          "externalAccountId": "KAI-ORG-4410",
+          "accountDisplayName": "Rakaiz Support AI",
+          "accountStatus": "active",
+          "licenseStatus": "valid",
+          "sourceOfTruth": "Stripe + Kayan AI RLS",
+          "lastSyncedAt": "2026-11-17T10:20:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "subr-102",
+      "displayName": "شركة المدار للتجارة والتوصيل",
+      "organizationName": "شركة المدار للخدمات اللوجستية",
+      "email": "tech@almadar-logistics.sa",
+      "phone": "+966558877661",
+      "country": "السعودية",
+      "city": "جدة",
+      "notes": [
+        "حساب قاتشي موثق. الاشتراك يقترب من التجديد خلال 5 أيام."
+      ],
+      "createdAt": "2025-02-18T11:20:00.000Z",
+      "linkedAccounts": [
+        {
+          "id": "ext-3",
+          "productId": "prod-qatshe",
+          "productName": "قاتشي",
+          "externalAccountId": "QAT-TEN-204",
+          "accountDisplayName": "منصة المدار اللوجستية",
+          "accountStatus": "active",
+          "licenseStatus": "expiring_soon",
+          "sourceOfTruth": "Qatshe API (قيد التدقيق)",
+          "lastSyncedAt": "2026-11-17T08:40:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "subr-103",
+      "displayName": "شبكة الساحل السريع",
+      "organizationName": "شبكة الساحل لخدمات الإنترنت",
+      "email": "admin@alsahil-isp.ye",
+      "phone": "+967771234567",
+      "country": "اليمن",
+      "city": "حضرموت",
+      "notes": [
+        "اشتراك سنوي ينتهي قريباً، تم التواصل للتجديد."
+      ],
+      "createdAt": "2025-01-10T14:00:00.000Z",
+      "linkedAccounts": [
+        {
+          "id": "ext-4",
+          "productId": "prod-krotak-pro",
+          "productName": "كروتك برو",
+          "externalAccountId": "KRT-NET-9104",
+          "externalTenantCode": "NET-MUKALLA-03",
+          "accountDisplayName": "شبكة الساحل - المكلا",
+          "accountStatus": "active",
+          "licenseStatus": "expiring_soon",
+          "deviceStatus": "جهازان مفعلان · آخر نبضة قبل ساعة",
+          "sourceOfTruth": "Krotic Admin API",
+          "lastSyncedAt": "2026-11-17T10:15:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "subr-104",
+      "displayName": "عيادات الأفق التخصصية",
+      "organizationName": "مجموعة عيادات الأفق الطبية",
+      "email": "it@alofoq-clinics.com",
+      "phone": "+971509988112",
+      "country": "الإمارات",
+      "city": "دبي",
+      "notes": [
+        "تستخدم كيان AI لحجز المواعيد والرد الآلي."
+      ],
+      "createdAt": "2025-07-04T08:30:00.000Z",
+      "linkedAccounts": [
+        {
+          "id": "ext-5",
+          "productId": "prod-kayan-ai",
+          "productName": "كيان AI",
+          "externalAccountId": "KAI-ORG-5102",
+          "accountDisplayName": "AlOfoq Patient Desk",
+          "accountStatus": "active",
+          "licenseStatus": "valid",
+          "sourceOfTruth": "Stripe + Kayan AI RLS",
+          "lastSyncedAt": "2026-11-17T10:20:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "subr-105",
+      "displayName": "مؤسسة البناء المتقن للمقاولات",
+      "organizationName": "شركة البناء المتقن",
+      "email": "hr@mutqan-build.sa",
+      "phone": "+966532211009",
+      "country": "السعودية",
+      "city": "الدمام",
+      "notes": [
+        "حساب نظام الموظفين — البيانات التشغيلية محجوبة وفق سياسة الخصوصية."
+      ],
+      "createdAt": "2025-09-01T10:00:00.000Z",
+      "linkedAccounts": [
+        {
+          "id": "ext-6",
+          "productId": "prod-almothfin",
+          "productName": "نظام الموظفين",
+          "externalAccountId": "ALM-ORG-319",
+          "accountDisplayName": "البناء المتقن - الإدارة",
+          "accountStatus": "pending_audit",
+          "licenseStatus": "valid",
+          "sourceOfTruth": "Almothfin Firestore (مقيد الخصوصية)",
+          "lastSyncedAt": "2026-11-17T07:10:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "subr-106",
+      "displayName": "شبكة القمة الذكية",
+      "organizationName": "مؤسسة القمة للاتصالات",
+      "email": "support@alqimmah-net.ye",
+      "phone": "+967733445566",
+      "country": "اليمن",
+      "city": "صنعاء",
+      "notes": [
+        "انتهى الاشتراك بتاريخ 2026-11-10 وبانتظار تأكيد السداد."
+      ],
+      "createdAt": "2024-11-10T09:00:00.000Z",
+      "linkedAccounts": [
+        {
+          "id": "ext-7",
+          "productId": "prod-krotak-pro",
+          "productName": "كروتك برو",
+          "externalAccountId": "KRT-NET-7330",
+          "externalTenantCode": "NET-SANAA-09",
+          "accountDisplayName": "القمة نت",
+          "accountStatus": "expired",
+          "licenseStatus": "expiring_soon",
+          "deviceStatus": "جهاز واحد · متوقف عن المزامنة",
+          "sourceOfTruth": "Krotic Admin API",
+          "lastSyncedAt": "2026-11-17T10:15:00.000Z"
+        }
+      ]
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": "sub-5001",
+      "subscriberId": "subr-101",
+      "subscriberName": "مؤسسة ركائز للاتصالات",
+      "productId": "prod-krotak-pro",
+      "productName": "كروتك برو",
+      "externalAccountId": "KRT-NET-8821",
+      "planId": "plan-krotak-ent",
+      "planName": "باقة المؤسسات الشبكية",
+      "status": "active",
+      "startDate": "2026-01-01",
+      "endDate": "2026-12-31",
+      "autoRenew": true,
+      "sourceOfTruth": "Krotic Admin API",
+      "lastActionRef": "KRT-ACT-9901",
+      "lastSyncedAt": "2026-11-17T10:15:00.000Z"
+    },
+    {
+      "id": "sub-5002",
+      "subscriberId": "subr-101",
+      "subscriberName": "مؤسسة ركائز للاتصالات",
+      "productId": "prod-kayan-ai",
+      "productName": "كيان AI",
+      "externalAccountId": "KAI-ORG-4410",
+      "planId": "plan-ai-growth",
+      "planName": "باقة النمو الذكي",
+      "status": "active",
+      "startDate": "2026-10-15",
+      "endDate": "2026-12-15",
+      "autoRenew": true,
+      "sourceOfTruth": "Stripe Subscription sub_1Q9x",
+      "lastActionRef": "STR-INV-4421",
+      "lastSyncedAt": "2026-11-17T10:20:00.000Z"
+    },
+    {
+      "id": "sub-5003",
+      "subscriberId": "subr-103",
+      "subscriberName": "شبكة الساحل السريع",
+      "productId": "prod-krotak-pro",
+      "productName": "كروتك برو",
+      "externalAccountId": "KRT-NET-9104",
+      "planId": "plan-krotak-pro",
+      "planName": "الباقة الاحترافية",
+      "status": "expiring_soon",
+      "startDate": "2025-11-22",
+      "endDate": "2026-11-22",
+      "autoRenew": false,
+      "sourceOfTruth": "Krotic Admin API",
+      "lastSyncedAt": "2026-11-17T10:15:00.000Z"
+    },
+    {
+      "id": "sub-5004",
+      "subscriberId": "subr-104",
+      "subscriberName": "عيادات الأفق التخصصية",
+      "productId": "prod-kayan-ai",
+      "productName": "كيان AI",
+      "externalAccountId": "KAI-ORG-5102",
+      "planId": "plan-ai-ent",
+      "planName": "باقة الوكلاء المتقدمة",
+      "status": "active",
+      "startDate": "2026-08-01",
+      "endDate": "2027-08-01",
+      "autoRenew": true,
+      "sourceOfTruth": "Stripe Subscription sub_1R2k",
+      "lastSyncedAt": "2026-11-17T10:20:00.000Z"
+    },
+    {
+      "id": "sub-5005",
+      "subscriberId": "subr-102",
+      "subscriberName": "شركة المدار للتجارة والتوصيل",
+      "productId": "prod-qatshe",
+      "productName": "قاتشي",
+      "externalAccountId": "QAT-TEN-204",
+      "planId": "plan-qatshe-biz",
+      "planName": "باقة الأعمال اللوجستية",
+      "status": "expiring_soon",
+      "startDate": "2026-10-22",
+      "endDate": "2026-11-22",
+      "autoRenew": false,
+      "sourceOfTruth": "Qatshe API (قيد التدقيق)",
+      "lastSyncedAt": "2026-11-17T08:40:00.000Z"
+    },
+    {
+      "id": "sub-5006",
+      "subscriberId": "subr-106",
+      "subscriberName": "شبكة القمة الذكية",
+      "productId": "prod-krotak-pro",
+      "productName": "كروتك برو",
+      "externalAccountId": "KRT-NET-7330",
+      "planId": "plan-krotak-pro",
+      "planName": "الباقة الاحترافية",
+      "status": "expired",
+      "startDate": "2025-11-10",
+      "endDate": "2026-11-10",
+      "autoRenew": false,
+      "sourceOfTruth": "Krotic Admin API",
+      "lastSyncedAt": "2026-11-17T10:15:00.000Z"
+    }
+  ],
+  "plans": [
+    {
+      "id": "plan-krotak-pro",
+      "productId": "prod-krotak-pro",
+      "productName": "كروتك برو",
+      "name": "الباقة الاحترافية",
+      "targetAudience": "لشبكات الواي فاي المتوسطة",
+      "price": 180,
+      "currency": "USD",
+      "billingCycle": "yearly",
+      "usageLimits": "حتى 3 أجهزة مرتبطة · 50,000 كرت شهرياً",
+      "features": [
+        "إدارة نقاط البيع والمحافظ",
+        "نسخ احتياطي مشفر",
+        "دعم فني مباشر"
+      ],
+      "status": "active",
+      "displayOrder": 1,
+      "sourceSynced": true,
+      "updatedAt": "2026-11-01"
+    },
+    {
+      "id": "plan-krotak-ent",
+      "productId": "prod-krotak-pro",
+      "productName": "كروتك برو",
+      "name": "باقة المؤسسات الشبكية",
+      "targetAudience": "لمزودي الخدمة والشبكات الكبرى",
+      "price": 360,
+      "currency": "USD",
+      "billingCycle": "yearly",
+      "usageLimits": "حتى 10 أجهزة مرتبطة · كروت غير محدودة",
+      "features": [
+        "مزامنة سحابية متعددة الفروع",
+        "تقارير تسوية متقدمة",
+        "أولوية الدعم"
+      ],
+      "status": "active",
+      "displayOrder": 2,
+      "sourceSynced": true,
+      "updatedAt": "2026-11-01"
+    },
+    {
+      "id": "plan-ai-growth",
+      "productId": "prod-kayan-ai",
+      "productName": "كيان AI",
+      "name": "باقة النمو الذكي",
+      "targetAudience": "لفرق المبيعات وخدمة العملاء",
+      "price": 149,
+      "currency": "USD",
+      "billingCycle": "monthly",
+      "usageLimits": "3 وكلاء ذكاء اصطناعي · 10,000 محادثة شهرياً",
+      "features": [
+        "ربط واتساب الرسمي",
+        "قاعدة معرفة مخصصة",
+        "تحليلات التحويل"
+      ],
+      "status": "active",
+      "displayOrder": 1,
+      "sourceSynced": true,
+      "updatedAt": "2026-11-05"
+    },
+    {
+      "id": "plan-ai-ent",
+      "productId": "prod-kayan-ai",
+      "productName": "كيان AI",
+      "name": "باقة الوكلاء المتقدمة",
+      "targetAudience": "للمؤسسات والعيادات متعددة القنوات",
+      "price": 490,
+      "currency": "USD",
+      "billingCycle": "monthly",
+      "usageLimits": "وكلاء غير محدودين · قنوات صوتية Vapi + Twilio",
+      "features": [
+        "وكيل صوتي ذكي",
+        "تكامل CRM مخصص",
+        "عزل بيانات RLS مخصص"
+      ],
+      "status": "active",
+      "displayOrder": 2,
+      "sourceSynced": true,
+      "updatedAt": "2026-11-05"
+    },
+    {
+      "id": "plan-qatshe-biz",
+      "productId": "prod-qatshe",
+      "productName": "قاتشي",
+      "name": "باقة الأعمال اللوجستية",
+      "targetAudience": "لشركات التوصيل والتجارة المحلية",
+      "price": 750,
+      "currency": "SAR",
+      "billingCycle": "monthly",
+      "usageLimits": "حتى 25 تاجراً · مزامنة فورية للطلبات",
+      "features": [
+        "تطبيق PWA للمناديب",
+        "لوحة التجار",
+        "تقارير التحصيل"
+      ],
+      "status": "active",
+      "displayOrder": 1,
+      "sourceSynced": false,
+      "updatedAt": "2026-10-20"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-901",
+      "referenceId": "STR-CH-88412",
+      "subscriberId": "subr-101",
+      "subscriberName": "مؤسسة ركائز للاتصالات",
+      "productId": "prod-kayan-ai",
+      "productName": "كيان AI",
+      "amount": 149,
+      "currency": "USD",
+      "paidAt": "2026-11-15T09:12:00.000Z",
+      "status": "paid",
+      "paymentMethod": "Stripe Card",
+      "dataSource": "Stripe Webhook"
+    },
+    {
+      "id": "pay-902",
+      "referenceId": "KRT-TX-77102",
+      "subscriberId": "subr-101",
+      "subscriberName": "مؤسسة ركائز للاتصالات",
+      "productId": "prod-krotak-pro",
+      "productName": "كروتك برو",
+      "amount": 360,
+      "currency": "USD",
+      "paidAt": "2026-11-02T14:20:00.000Z",
+      "status": "paid",
+      "paymentMethod": "تحويل بنكي معتمد",
+      "dataSource": "Krotic Admin API"
+    },
+    {
+      "id": "pay-903",
+      "referenceId": "QAT-INV-3091",
+      "subscriberId": "subr-102",
+      "subscriberName": "شركة المدار للتجارة والتوصيل",
+      "productId": "prod-qatshe",
+      "productName": "قاتشي",
+      "amount": 750,
+      "currency": "SAR",
+      "paidAt": "2026-10-22T11:45:00.000Z",
+      "status": "paid",
+      "paymentMethod": "Mada / مدى",
+      "dataSource": "Qatshe API"
+    },
+    {
+      "id": "pay-904",
+      "referenceId": "STR-CH-90211",
+      "subscriberId": "subr-104",
+      "subscriberName": "عيادات الأفق التخصصية",
+      "productId": "prod-kayan-ai",
+      "productName": "كيان AI",
+      "amount": 490,
+      "currency": "USD",
+      "paidAt": "2026-11-12T16:00:00.000Z",
+      "status": "paid",
+      "paymentMethod": "Stripe Card",
+      "dataSource": "Stripe Webhook"
+    },
+    {
+      "id": "pay-905",
+      "referenceId": "KRT-TX-79015",
+      "subscriberId": "subr-103",
+      "subscriberName": "شبكة الساحل السريع",
+      "productId": "prod-krotak-pro",
+      "productName": "كروتك برو",
+      "amount": 95000,
+      "currency": "YER",
+      "paidAt": "2026-11-05T13:10:00.000Z",
+      "status": "pending",
+      "paymentMethod": "حوالة محلية",
+      "dataSource": "Krotic Admin API"
+    }
+  ],
+  "pages": [
+    {
+      "id": "page-home",
+      "name": "الرئيسية",
+      "slug": "/",
+      "title": "كيان سوفت للبرمجيات والحلول الذكية",
+      "description": "مؤسسة برمجية متخصصة في بناء الأنظمة السحابية وتطبيقات الجوال وحلول الذكاء الاصطناعي للمؤسسات.",
+      "status": "published",
+      "seoTitle": "كيان سوفت | هندسة البرمجيات والحلول الذكية للمؤسسات",
+      "seoDescription": "نصمم ونبني أنظمة برمجية متكاملة، تطبيقات جوال، ومنصات ذكاء اصطناعي موثوقة لنمو أعمالك.",
+      "ogImage": "/src/assets/images/kayan_hero_studio_1794962896296.jpg",
+      "canonicalUrl": "https://kayansoft.sa/",
+      "createdAt": "2026-01-10T08:00:00.000Z",
+      "updatedAt": "2026-11-17T10:30:00.000Z",
+      "updatedBy": "م. طارق المنصور",
+      "sections": [
+        {
+          "id": "sec-hero",
+          "type": "hero",
+          "title": "نهندس برمجيات الأعمال التي تعمل باستقرار وثقة",
+          "subtitle": "مؤسسة كيان سوفت للبرمجيات والحلول الذكية",
+          "body": "نطوّر أنظمة تشغيلية متخصصة، تطبيقات أعمال عالية الاعتمادية، ووكلاء ذكاء اصطناعي مصممين وفق واقع المؤسسات العربية.",
+          "ctaLabel": "اطلب عرض مشروعك",
+          "ctaHref": "#request-project",
+          "imageUrl": "/src/assets/images/kayan_hero_studio_1794962896296.jpg",
+          "visible": true,
+          "templateVariant": "split"
+        },
+        {
+          "id": "sec-stats",
+          "type": "stats",
+          "title": "أرقام موثقة من منتجاتنا ومشاريعنا",
+          "subtitle": "نتائج تشغيلية حقيقية عبر أنظمة المؤسسة المستقلة",
+          "visible": true,
+          "templateVariant": "minimal",
+          "items": [
+            {
+              "label": "منتج برمجي قائم",
+              "value": "5 أنظمة",
+              "description": "تعمل باستقلالية كاملة"
+            },
+            {
+              "label": "مشروع منجز في المعرض",
+              "value": "6 مشاريع",
+              "description": "قطاعات الاتصالات واللوجستيات والطب"
+            },
+            {
+              "label": "اعتمادية التشغيل",
+              "value": "99.9%",
+              "description": "بنية معزولة ومراقبة مستمرة"
+            },
+            {
+              "label": "زمن استجابة الدعم",
+              "value": "< 30 دقيقة",
+              "description": "فريق هندسي مباشر"
+            }
+          ]
+        },
+        {
+          "id": "sec-services",
+          "type": "services_grid",
+          "title": "خدماتنا الهندسية",
+          "subtitle": "نحول المتطلبات التشغيلية المعقدة إلى أنظمة برمجية واضحة وقابلة للتوسع.",
+          "visible": true,
+          "templateVariant": "editorial"
+        },
+        {
+          "id": "sec-portfolio",
+          "type": "portfolio_showcase",
+          "title": "مختارات من معرض الأعمال",
+          "subtitle": "أنظمة وتطبيقات نفذتها كيان سوفت لمؤسسات وشركات رائدة.",
+          "visible": true,
+          "templateVariant": "editorial"
+        },
+        {
+          "id": "sec-faq",
+          "type": "faq",
+          "title": "الأسئلة الشائعة",
+          "subtitle": "إجابات واضحة حول آلية العمل والتعاقد والدعم الفني.",
+          "visible": true,
+          "templateVariant": "minimal",
+          "items": [
+            {
+              "label": "كيف تضمنون استقلالية بيانات مؤسستنا؟",
+              "value": "عزل تام لقواعد البيانات",
+              "description": "كل نظام يُصمم بقاعدة بيانات معزولة وصلاحيات وصول دقيقة مع تشفير كامل للاتصالات."
+            },
+            {
+              "label": "هل توفرون دعماً فنياً وتطويراً مستمراً بعد الإطلاق؟",
+              "value": "اتفاقيات دعم وصيانة",
+              "description": "نقدم عقود تشغيل ومراقبة وتطوير مستمر للمزايا وفق خارطة نمو العميل."
+            }
+          ]
+        },
+        {
+          "id": "sec-cta",
+          "type": "cta",
+          "title": "هل لديك مشروع برمجي أو فكرة نظام متكامل؟",
+          "body": "شاركنا متطلباتك وسيقوم الفريق الهندسي بتحليلها وتقديم خطة تنفيذ وتكلفة واضحة.",
+          "ctaLabel": "ابدأ طلب المشروع الآن",
+          "ctaHref": "#request-project",
+          "visible": true,
+          "templateVariant": "minimal"
+        }
+      ],
+      "draftSections": [
+        {
+          "id": "sec-hero",
+          "type": "hero",
+          "title": "نهندس برمجيات الأعمال التي تعمل باستقرار وثقة",
+          "subtitle": "مؤسسة كيان سوفت للبرمجيات والحلول الذكية",
+          "body": "نطوّر أنظمة تشغيلية متخصصة، تطبيقات أعمال عالية الاعتمادية، ووكلاء ذكاء اصطناعي مصممين وفق واقع المؤسسات العربية.",
+          "ctaLabel": "اطلب عرض مشروعك",
+          "ctaHref": "#request-project",
+          "imageUrl": "/src/assets/images/kayan_hero_studio_1794962896296.jpg",
+          "visible": true,
+          "templateVariant": "split"
+        },
+        {
+          "id": "sec-stats",
+          "type": "stats",
+          "title": "أرقام موثقة من منتجاتنا ومشاريعنا",
+          "subtitle": "نتائج تشغيلية حقيقية عبر أنظمة المؤسسة المستقلة",
+          "visible": true,
+          "templateVariant": "minimal",
+          "items": [
+            {
+              "label": "منتج برمجي قائم",
+              "value": "5 أنظمة",
+              "description": "تعمل باستقلالية كاملة"
+            },
+            {
+              "label": "مشروع منجز في المعرض",
+              "value": "6 مشاريع",
+              "description": "قطاعات الاتصالات واللوجستيات والطب"
+            },
+            {
+              "label": "اعتمادية التشغيل",
+              "value": "99.9%",
+              "description": "بنية معزولة ومراقبة مستمرة"
+            },
+            {
+              "label": "زمن استجابة الدعم",
+              "value": "< 30 دقيقة",
+              "description": "فريق هندسي مباشر"
+            }
+          ]
+        },
+        {
+          "id": "sec-services",
+          "type": "services_grid",
+          "title": "خدماتنا الهندسية",
+          "subtitle": "نحول المتطلبات التشغيلية المعقدة إلى أنظمة برمجية واضحة وقابلة للتوسع.",
+          "visible": true,
+          "templateVariant": "editorial"
+        },
+        {
+          "id": "sec-portfolio",
+          "type": "portfolio_showcase",
+          "title": "مختارات من معرض الأعمال",
+          "subtitle": "أنظمة وتطبيقات نفذتها كيان سوفت لمؤسسات وشركات رائدة.",
+          "visible": true,
+          "templateVariant": "editorial"
+        },
+        {
+          "id": "sec-faq",
+          "type": "faq",
+          "title": "الأسئلة الشائعة",
+          "subtitle": "إجابات واضحة حول آلية العمل والتعاقد والدعم الفني.",
+          "visible": true,
+          "templateVariant": "minimal",
+          "items": [
+            {
+              "label": "كيف تضمنون استقلالية بيانات مؤسستنا؟",
+              "value": "عزل تام لقواعد البيانات",
+              "description": "كل نظام يُصمم بقاعدة بيانات معزولة وصلاحيات وصول دقيقة مع تشفير كامل للاتصالات."
+            },
+            {
+              "label": "هل توفرون دعماً فنياً وتطويراً مستمراً بعد الإطلاق؟",
+              "value": "اتفاقيات دعم وصيانة",
+              "description": "نقدم عقود تشغيل ومراقبة وتطوير مستمر للمزايا وفق خارطة نمو العميل."
+            }
+          ]
+        },
+        {
+          "id": "sec-cta",
+          "type": "cta",
+          "title": "هل لديك مشروع برمجي أو فكرة نظام متكامل؟",
+          "body": "شاركنا متطلباتك وسيقوم الفريق الهندسي بتحليلها وتقديم خطة تنفيذ وتكلفة واضحة.",
+          "ctaLabel": "ابدأ طلب المشروع الآن",
+          "ctaHref": "#request-project",
+          "visible": true,
+          "templateVariant": "minimal"
+        }
+      ],
+      "versions": [
+        {
+          "versionNumber": 1,
+          "savedAt": "2026-11-10T10:00:00.000Z",
+          "savedBy": "م. طارق المنصور",
+          "summary": "النسخة الأولية المرحلة من kayan-soft-website",
+          "sections": [
+            {
+              "id": "sec-hero",
+              "type": "hero",
+              "title": "كيان سوفت — حلول برمجية للمؤسسات",
+              "subtitle": "الإصدار التمهيدي للموقع الرسمي",
+              "body": "نبني أنظمة برمجية وتطبيقات أعمال مخصصة.",
+              "ctaLabel": "تواصل معنا",
+              "ctaHref": "#request-project",
+              "imageUrl": "/src/assets/images/kayan_hero_studio_1794962896296.jpg",
+              "visible": true,
+              "templateVariant": "split"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "page-about",
+      "name": "من نحن",
+      "slug": "/about",
+      "title": "عن مؤسسة كيان سوفت",
+      "description": "رؤيتنا الهندسية ومبادئ بناء البرمجيات المستقرة.",
+      "status": "published",
+      "seoTitle": "من نحن | مؤسسة كيان سوفت للبرمجيات",
+      "seoDescription": "تعرف على فريق ومنهجية كيان سوفت في بناء المنصات السحابية وتطبيقات الأعمال.",
+      "ogImage": "/src/assets/images/kayan_hero_studio_1794962896296.jpg",
+      "canonicalUrl": "https://kayansoft.sa/about",
+      "createdAt": "2026-01-12T08:00:00.000Z",
+      "updatedAt": "2026-11-17T10:30:00.000Z",
+      "updatedBy": "م. طارق المنصور",
+      "sections": [
+        {
+          "id": "about-rich",
+          "type": "rich_text",
+          "title": "مؤسسة هندسية تركز على الأثر التشغيلي طويل المدى",
+          "body": "انطلقت كيان سوفت لبناء برمجيات عربية رصينة تخدم قطاعات الاتصالات واللوجستيات والذكاء الاصطناعي والموارد البشرية دون تعقيد غير مبرر.",
+          "visible": true,
+          "templateVariant": "editorial"
+        }
+      ],
+      "draftSections": [
+        {
+          "id": "about-rich",
+          "type": "rich_text",
+          "title": "مؤسسة هندسية تركز على الأثر التشغيلي طويل المدى",
+          "body": "انطلقت كيان سوفت لبناء برمجيات عربية رصينة تخدم قطاعات الاتصالات واللوجستيات والذكاء الاصطناعي والموارد البشرية دون تعقيد غير مبرر.",
+          "visible": true,
+          "templateVariant": "editorial"
+        }
+      ],
+      "versions": []
+    },
+    {
+      "id": "page-privacy",
+      "name": "سياسة الخصوصية",
+      "slug": "/privacy",
+      "title": "سياسة الخصوصية وحماية البيانات",
+      "description": "التزامنا الصارم بعزل بيانات العملاء وعدم مشاركة البيانات الحساسة.",
+      "status": "published",
+      "seoTitle": "سياسة الخصوصية | كيان سوفت",
+      "seoDescription": "ضوابط حماية البيانات والخصوصية في منتجات وخدمات كيان سوفت.",
+      "ogImage": "/src/assets/images/kayan_hero_studio_1794962896296.jpg",
+      "canonicalUrl": "https://kayansoft.sa/privacy",
+      "createdAt": "2026-01-15T08:00:00.000Z",
+      "updatedAt": "2026-11-17T10:30:00.000Z",
+      "updatedBy": "م. طارق المنصور",
+      "sections": [
+        {
+          "id": "priv-1",
+          "type": "rich_text",
+          "title": "حماية بيانات المشتركين والعملاء",
+          "body": "تخضع كافة بيانات العملاء والمشتركين لضوابط العزل التام والتشفير وعدم مشاركة أي بيانات تشغيلية حساسة خارج حدود الاتفاقية.",
+          "visible": true,
+          "templateVariant": "minimal"
+        }
+      ],
+      "draftSections": [
+        {
+          "id": "priv-1",
+          "type": "rich_text",
+          "title": "حماية بيانات المشتركين والعملاء",
+          "body": "تخضع كافة بيانات العملاء والمشتركين لضوابط العزل التام والتشفير وعدم مشاركة أي بيانات تشغيلية حساسة خارج حدود الاتفاقية.",
+          "visible": true,
+          "templateVariant": "minimal"
+        }
+      ],
+      "versions": []
+    }
+  ],
+  "articles": [
+    {
+      "id": "art-1",
+      "title": "لماذا نفصل بين الإدارة المركزية والأنظمة التشغيلية للمنتجات؟",
+      "slug": "central-governance-independent-systems",
+      "excerpt": "دراسة معمارية حول منع نقطة الفشل الواحدة وحماية قواعد بيانات المنتجات المستقلة.",
+      "content": "عند نمو المؤسسة البرمجية وتعدد منتجاتها، يبرز إغراء دمج جميع قواعد البيانات في لوحة واحدة. غير أن الخبرة الهندسية تثبت أن إبقاء كل منتج مستقلاً بقاعدة بياناته وتشغيله اليومي، مع ربطه عبر عقود API موثقة ومحددة الصلاحيات، يضمن استمرارية الأعمال حتى عند تعطل أي طبقة إدارية مركزية.",
+      "category": "هندسة البرمجيات",
+      "tags": [
+        "المعمارية",
+        "API",
+        "الأمان"
+      ],
+      "authorName": "م. طارق المنصور",
+      "coverImage": "/src/assets/images/article_architecture_cover_1794962895677.jpg",
+      "status": "published",
+      "publishedAt": "2026-11-01T09:00:00.000Z",
+      "seoTitle": "فصل الإدارة المركزية عن الأنظمة التشغيلية | مدونة كيان سوفت",
+      "seoDescription": "كيف تبني منصة إدارة مركزية دون المساس باستقلالية قواعد بيانات المنتجات.",
+      "views": 1420,
+      "revisionCount": 3,
+      "updatedAt": "2026-11-01T09:00:00.000Z"
+    },
+    {
+      "id": "art-2",
+      "title": "تصميم تطبيقات الأعمال العربية بالعمل دون اتصال Offline-First",
+      "slug": "offline-first-arabic-enterprise-apps",
+      "excerpt": "تجربتنا في بناء تطبيق كروتك برو باستخدام SQLite وDrift لضمان العمل المستمر.",
+      "content": "في بيئات الشبكات الميدانية ونقاط البيع، لا يمكن الاعتماد الدائم على اتصال إنترنت مستقر. اعتمدنا في كروتك برو بنية محلية صارمة مع نسخ احتياطي مشفر ومزامنة ذكية للحالات الضرورية فقط.",
+      "category": "تطبيقات الجوال",
+      "tags": [
+        "Flutter",
+        "SQLite",
+        "Offline-First"
+      ],
+      "authorName": "م. ريم العبدالله",
+      "coverImage": "/src/assets/images/project_krotak_showcase_1794962892852.jpg",
+      "status": "published",
+      "publishedAt": "2026-10-18T11:30:00.000Z",
+      "seoTitle": "بناء تطبيقات Offline-First بالعربية | مدونة كيان سوفت",
+      "seoDescription": "مبادئ تصميم قواعد البيانات المحلية والمزامنة الآمنة في تطبيقات الجوال.",
+      "views": 980,
+      "revisionCount": 2,
+      "updatedAt": "2026-10-18T11:30:00.000Z"
+    },
+    {
+      "id": "art-3",
+      "title": "تأمين منصات الذكاء الاصطناعي متعددة المؤسسات باستخدام PostgreSQL RLS",
+      "slug": "securing-multi-tenant-ai-with-rls",
+      "excerpt": "كيف نحقق عزل المؤسسات وتشفير مفاتيح القنوات في منصة كيان AI.",
+      "content": "يتطلب بناء منصة وكلاء ذكاء اصطناعي للمؤسسات ضمان عدم تسرب سياق مؤسسة إلى أخرى. يجمع تصميمنا بين سياسات Row Level Security في PostgreSQL وتشفير بيانات القنوات بمعيار AES-256-GCM.",
+      "category": "الذكاء الاصطناعي والأمان",
+      "tags": [
+        "PostgreSQL",
+        "RLS",
+        "كيان AI"
+      ],
+      "authorName": "م. خالد السبيعي",
+      "coverImage": "/src/assets/images/project_kayan_ai_1794962893914.jpg",
+      "status": "published",
+      "publishedAt": "2026-10-05T14:00:00.000Z",
+      "seoTitle": "أمان المنصات متعددة المؤسسات وRLS | مدونة كيان سوفت",
+      "seoDescription": "تطبيق Row Level Security وتشفير القنوات في الأنظمة السحابية.",
+      "views": 1185,
+      "revisionCount": 4,
+      "updatedAt": "2026-10-05T14:00:00.000Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "prj-1",
+      "name": "كروتك برو — نظام إدارة الشبكات والبطاقات",
+      "slug": "krotak-pro-platform",
+      "category": "تطبيقات الجوال والأنظمة المحلية",
+      "year": "2026",
+      "shortDescription": "تطبيق أندرويد محلي الأداء لإدارة شبكات الإنترنت والبطاقات والمحافظ دون انقطاع.",
+      "detailedDescription": "منظومة متكاملة تجمع بين تطبيق Flutter محلي بقاعدة Drift ولوحة تحكم سحابية لإدارة التراخيص والأجهزة.",
+      "problemSolved": "انقطاع عمليات البيع وتوليد الكروت عند ضعف الاتصال بالإنترنت وتشتت حسابات نقاط البيع.",
+      "solutionProvided": "قاعدة بيانات محلية مشفرة مع مزامنة التراخيص عبر واجهة API مستقلة.",
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "SQLite Drift",
+        "React",
+        "Firestore API"
+      ],
+      "linkedServices": [
+        "تطوير تطبيقات الجوال",
+        "الأنظمة السحابية"
+      ],
+      "coverImage": "/src/assets/images/project_krotak_showcase_1794962892852.jpg",
+      "projectUrl": "https://kayansoft.sa/projects/krotak-pro",
+      "clientName": "منتج داخلي لكيان سوفت",
+      "showClientName": true,
+      "featured": true,
+      "displayOrder": 1,
+      "published": true,
+      "seoTitle": "كروتك برو | معرض أعمال كيان سوفت",
+      "seoDescription": "تطبيق إدارة شبكات الإنترنت ونقاط البيع والبطاقات."
+    },
+    {
+      "id": "prj-2",
+      "name": "منصة كيان AI للوكلاء الأذكياء",
+      "slug": "kayan-ai-agents",
+      "category": "الذكاء الاصطناعي والأتمتة",
+      "year": "2026",
+      "shortDescription": "منصة سحابية متعددة المؤسسات لإدارة وكلاء خدمة العملاء والمبيعات عبر الواتساب والصوت.",
+      "detailedDescription": "بنية Next.js 16 وPostgreSQL RLS مع تكامل Gemini وStripe وTwilio وVapi.",
+      "problemSolved": "تأخر الرد على استفسارات العملاء وصعوبة ربط المحادثات بأنظمة الحجز والفوترة.",
+      "solutionProvided": "وكلاء أذكياء بقواعد معرفة معزولة وفوترة آلية عبر Stripe Webhooks.",
+      "technologies": [
+        "Next.js 16",
+        "TypeScript",
+        "PostgreSQL RLS",
+        "Gemini",
+        "Stripe"
+      ],
+      "linkedServices": [
+        "حلول الذكاء الاصطناعي",
+        "التكاملات السحابية"
+      ],
+      "coverImage": "/src/assets/images/project_kayan_ai_1794962893914.jpg",
+      "projectUrl": "https://ai.kayansoft.sa",
+      "clientName": "منتج داخلي لكيان سوفت",
+      "showClientName": true,
+      "featured": true,
+      "displayOrder": 2,
+      "published": true,
+      "seoTitle": "كيان AI | معرض أعمال كيان سوفت",
+      "seoDescription": "منصة الوكلاء الأذكياء والأتمتة متعددة القنوات."
+    },
+    {
+      "id": "prj-3",
+      "name": "منظومة قاتشي للطلبات والتوصيل",
+      "slug": "qatshe-delivery-system",
+      "category": "منصات التجارة واللوجستيات",
+      "year": "2025",
+      "shortDescription": "تطبيق PWA لإدارة الطلبات والتجار وأساطيل التوصيل في بيئة متعددة المؤسسات.",
+      "detailedDescription": "نظام تشغيل لوجستي يربط التاجر والمندوب والعميل مع تخزين محلي ومزامنة.",
+      "problemSolved": "فقدان الطلبات أثناء ضعف الشبكة وتداخل صلاحيات التجار.",
+      "solutionProvided": "تطبيق ويب تقدمي PWA مدعوم بمفاتيح Idempotency وقاعدة PostgreSQL.",
+      "technologies": [
+        "React",
+        "Express",
+        "PostgreSQL",
+        "Dexie IndexedDB",
+        "PWA"
+      ],
+      "linkedServices": [
+        "الأنظمة السحابية",
+        "تطبيقات الويب التقدمية"
+      ],
+      "coverImage": "/src/assets/images/project_qatshe_delivery_1794962893588.jpg",
+      "clientName": "قطاع الخدمات اللوجستية",
+      "showClientName": true,
+      "featured": true,
+      "displayOrder": 3,
+      "published": true,
+      "seoTitle": "قاتشي للطلبات والتوصيل | معرض أعمال كيان سوفت",
+      "seoDescription": "منصة إدارة التجار والتوصيل المتعددة المؤسسات."
+    },
+    {
+      "id": "prj-4",
+      "name": "نظام الموظفين والحضور الذكي",
+      "slug": "almothfin-workforce",
+      "category": "أنظمة الموارد البشرية",
+      "year": "2025",
+      "shortDescription": "نظام عربي RTL لحضور العمال والرواتب والسلف مع تحليل نصوص الحضور العربية.",
+      "detailedDescription": "أداة ميدانية وإدارية تعمل دون اتصال وتُصدر تقارير PDF دقيقة.",
+      "problemSolved": "صعوبة توثيق الحضور اليومي والسلف في المواقع الميدانية.",
+      "solutionProvided": "محلل نصوص حضور عربية مدمج وتصدير JSON وPDF مع العمل دون اتصال.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Firestore",
+        "PWA"
+      ],
+      "linkedServices": [
+        "تطوير أنظمة المؤسسات"
+      ],
+      "coverImage": "/src/assets/images/article_architecture_cover_1794962895677.jpg",
+      "clientName": "قطاع المقاولات والتشغيل",
+      "showClientName": true,
+      "featured": false,
+      "displayOrder": 4,
+      "published": true,
+      "seoTitle": "نظام الموظفين | معرض أعمال كيان سوفت",
+      "seoDescription": "إدارة العمال والرواتب والسلف والحضور اليومي."
+    },
+    {
+      "id": "prj-5",
+      "name": "بوابة ركائز لإدارة الفروع والوكلاء",
+      "slug": "rakaiz-branches-portal",
+      "category": "الأنظمة السحابية",
+      "year": "2025",
+      "shortDescription": "منصة مركزية لمراقبة أداء الفروع وتقارير المبيعات والتسويات.",
+      "detailedDescription": "لوحة تحكم تنفيذية موحدة مع صلاحيات وصول حسب المنطقة والفرع.",
+      "problemSolved": "تأخر تقارير الإغلاق اليومي بين 14 فرعاً.",
+      "solutionProvided": "تجميع آلي للملخصات المالية مع تقارير قابلة للتصدير.",
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL"
+      ],
+      "linkedServices": [
+        "الأنظمة السحابية"
+      ],
+      "coverImage": "/src/assets/images/kayan_hero_studio_1794962896296.jpg",
+      "clientName": "مؤسسة ركائز",
+      "showClientName": false,
+      "featured": false,
+      "displayOrder": 5,
+      "published": true,
+      "seoTitle": "بوابة إدارة الفروع | كيان سوفت",
+      "seoDescription": "منصة مراقبة أداء الفروع والتقارير التنفيذية."
+    },
+    {
+      "id": "prj-6",
+      "name": "منصة حجز وتنسيق المواعيد الطبية - الأفق",
+      "slug": "alofoq-medical-desk",
+      "category": "الذكاء الاصطناعي والأتمتة",
+      "year": "2026",
+      "shortDescription": "نظام حجز ذكي يربط استفسارات المرضى بجدول العيادات الفعلي.",
+      "detailedDescription": "تكامل بين الرد الآلي وتأكيد المواعيد وإشعارات المتابعة.",
+      "problemSolved": "ازدحام خطوط الاتصال وضياع 28% من طلبات الحجز المسائية.",
+      "solutionProvided": "وكيل حجز آلي على مدار الساعة مع لوحة متابعة لموظفي الاستقبال.",
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "Gemini API",
+        "Webhook"
+      ],
+      "linkedServices": [
+        "حلول الذكاء الاصطناعي"
+      ],
+      "coverImage": "/src/assets/images/project_kayan_ai_1794962893914.jpg",
+      "clientName": "عيادات الأفق",
+      "showClientName": true,
+      "featured": false,
+      "displayOrder": 6,
+      "published": true,
+      "seoTitle": "نظام المواعيد الذكي | كيان سوفت",
+      "seoDescription": "أتمتة حجوزات العيادات الطبية بالذكاء الاصطناعي."
+    }
+  ],
+  "services": [
+    {
+      "id": "srv-1",
+      "name": "هندسة وتطوير المنصات السحابية",
+      "shortDescription": "بناء أنظمة SaaS ومنصات إدارة مركزية متعددة المؤسسات بأعلى معايير الأمان والعزل.",
+      "details": "نصمم المعمارية الكاملة، قواعد البيانات المعزولة، واجهات API، ولوحات التحكم التنفيذية.",
+      "features": [
+        "معمارية قابلة للتوسع",
+        "صلاحيات RBAC دقيقة",
+        "سجل تدقيق شامل"
+      ],
+      "startingPrice": "ابتداءً من 8,500 USD",
+      "displayOrder": 1,
+      "published": true,
+      "linkedFormTag": "تطوير منصة سحابية"
+    },
+    {
+      "id": "srv-2",
+      "name": "تطبيقات الجوال والأنظمة الهجينة",
+      "shortDescription": "تطوير تطبيقات أندرويد وiOS وتطبيقات PWA التي تعمل بكفاءة حتى عند انقطاع الشبكة.",
+      "details": "تطبيقات Flutter وPWA مزودة بقواعد بيانات محلية مشفرة ومزامنة موثوقة.",
+      "features": [
+        "دعم كامل للعربية RTL",
+        "العمل دون اتصال Offline-First",
+        "أداء فائق"
+      ],
+      "startingPrice": "ابتداءً من 6,000 USD",
+      "displayOrder": 2,
+      "published": true,
+      "linkedFormTag": "تطوير تطبيق جوال"
+    },
+    {
+      "id": "srv-3",
+      "name": "حلول الذكاء الاصطناعي وأتمتة الأعمال",
+      "shortDescription": "بناء وكلاء خدمة عملاء ومبيعات مرتبطين ببيانات مؤسستك وقنوات التواصل الرسمية.",
+      "details": "ربط نماذج الذكاء الاصطناعي بقواعد المعرفة وأنظمة CRM مع تشفير وحماية كاملة.",
+      "features": [
+        "تكامل واتساب والصوت",
+        "قواعد معرفة معزولة",
+        "تحليلات تحويل دقيقة"
+      ],
+      "startingPrice": "ابتداءً من 4,500 USD",
+      "displayOrder": 3,
+      "published": true,
+      "linkedFormTag": "حلول الذكاء الاصطناعي"
+    },
+    {
+      "id": "srv-4",
+      "name": "التدقيق الهندسي وتكامل الأنظمة",
+      "shortDescription": "فحص المستودعات القائمة، توثيق عقود API، ومعالجة مخاطر الأمان والأداء.",
+      "details": "مراجعة شاملة لقواعد البيانات، RLS، قواعد Firebase، وتوحيد مصادر الحقيقة.",
+      "features": [
+        "تقرير مخاطر موثق",
+        "عقود تكامل قياسية",
+        "خطة ترقية مرحلية"
+      ],
+      "startingPrice": "ابتداءً من 2,500 USD",
+      "displayOrder": 4,
+      "published": true,
+      "linkedFormTag": "تدقيق وتكامل أنظمة"
+    }
+  ],
+  "media": [
+    {
+      "id": "med-1",
+      "fileName": "kayan_hero_studio.jpg",
+      "url": "/src/assets/images/kayan_hero_studio_1794962896296.jpg",
+      "mimeType": "image/jpeg",
+      "sizeBytes": 420500,
+      "category": "hero",
+      "altText": "مقر واستوديو هندسة البرمجيات في كيان سوفت",
+      "uploadedBy": "م. طارق المنصور",
+      "uploadedAt": "2026-11-10T09:00:00.000Z"
+    },
+    {
+      "id": "med-2",
+      "fileName": "project_krotak_showcase.jpg",
+      "url": "/src/assets/images/project_krotak_showcase_1794962892852.jpg",
+      "mimeType": "image/jpeg",
+      "sizeBytes": 315200,
+      "category": "projects",
+      "altText": "عرض واجهات تطبيق كروتك برو على الهاتف والجهاز اللوحي",
+      "uploadedBy": "م. طارق المنصور",
+      "uploadedAt": "2026-11-10T09:05:00.000Z"
+    },
+    {
+      "id": "med-3",
+      "fileName": "project_qatshe_delivery.jpg",
+      "url": "/src/assets/images/project_qatshe_delivery_1794962893588.jpg",
+      "mimeType": "image/jpeg",
+      "sizeBytes": 338900,
+      "category": "projects",
+      "altText": "منظومة قاتشي لإدارة الطلبات والتوصيل اللوجستي",
+      "uploadedBy": "م. طارق المنصور",
+      "uploadedAt": "2026-11-10T09:10:00.000Z"
+    },
+    {
+      "id": "med-4",
+      "fileName": "project_kayan_ai.jpg",
+      "url": "/src/assets/images/project_kayan_ai_1794962893914.jpg",
+      "mimeType": "image/jpeg",
+      "sizeBytes": 289400,
+      "category": "projects",
+      "altText": "منصة كيان AI للأنظمة والوكلاء الأذكياء",
+      "uploadedBy": "م. طارق المنصور",
+      "uploadedAt": "2026-11-10T09:15:00.000Z"
+    },
+    {
+      "id": "med-5",
+      "fileName": "article_architecture_cover.jpg",
+      "url": "/src/assets/images/article_architecture_cover_1794962895677.jpg",
+      "mimeType": "image/jpeg",
+      "sizeBytes": 356100,
+      "category": "articles",
+      "altText": "وثائق ومخططات هندسة الأنظمة والبرمجيات",
+      "uploadedBy": "م. ريم العبدالله",
+      "uploadedAt": "2026-11-11T11:00:00.000Z"
+    }
+  ],
+  "redirects": [
+    {
+      "id": "red-1",
+      "fromPath": "/portfolio",
+      "toPath": "/projects",
+      "statusCode": 301,
+      "active": true
+    },
+    {
+      "id": "red-2",
+      "fromPath": "/contact-us",
+      "toPath": "/#request-project",
+      "statusCode": 302,
+      "active": true
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead-301",
+      "name": "عبدالرحمن الشمري",
+      "organization": "شركة روافد للنقل المبرد",
+      "email": "a.alshammari@rawafid.sa",
+      "phone": "+966509876543",
+      "country": "السعودية",
+      "city": "الرياض",
+      "requestedService": "تطوير منصة سحابية",
+      "requestedProject": "نظام تتبع وتشغيل أسطول 40 شاحنة",
+      "expectedBudget": "18,000 - 25,000 USD",
+      "expectedTimeline": "4 أشهر",
+      "details": "نرغب في بناء لوحة إدارة مركزية مع تطبيق للسائقين يدعم العمل دون اتصال.",
+      "source": "project_request_form",
+      "stage": "إعداد عرض السعر",
+      "assigneeId": "u-sales",
+      "assigneeName": "سارة القحطاني",
+      "quoteAmount": "21,500 USD",
+      "whatsappNotificationStatus": "sent",
+      "createdAt": "2026-11-14T11:00:00.000Z",
+      "updatedAt": "2026-11-16T15:30:00.000Z",
+      "activities": [
+        {
+          "id": "act-1",
+          "type": "stage_change",
+          "author": "سارة القحطاني",
+          "summary": "تمت مراجعة المتطلبات وعقد اجتماع تقني أولي، ونقل الطلب إلى مرحلة إعداد عرض السعر.",
+          "createdAt": "2026-11-15T10:00:00.000Z"
+        },
+        {
+          "id": "act-2",
+          "type": "quote",
+          "author": "سارة القحطاني",
+          "summary": "تجهيز المسودة الأولى لعرض السعر بقيمة 21,500 USD شاملة المرحلة التجريبية.",
+          "createdAt": "2026-11-16T15:30:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "lead-302",
+      "name": "د. نورة الحربي",
+      "organization": "مجمع نبض التخصصي",
+      "email": "noura@nabd-care.com",
+      "phone": "+966541122998",
+      "country": "السعودية",
+      "city": "جدة",
+      "requestedService": "حلول الذكاء الاصطناعي",
+      "requestedProject": "تجربة منصة كيان AI لخدمة المرضى",
+      "expectedBudget": "490 USD / شهرياً",
+      "expectedTimeline": "فوري",
+      "details": "طلب تفعيل بيئة تجريبية لربط واتساب العيادة مع جدول المواعيد.",
+      "source": "product_trial",
+      "stage": "جديد",
+      "assigneeId": "u-sales",
+      "assigneeName": "سارة القحطاني",
+      "whatsappNotificationStatus": "sent",
+      "createdAt": "2026-11-17T08:15:00.000Z",
+      "updatedAt": "2026-11-17T08:15:00.000Z",
+      "activities": [
+        {
+          "id": "act-3",
+          "type": "notification_log",
+          "author": "النظام",
+          "summary": "تم حفظ الطلب وإرسال إشعار لموظف المبيعات بنجاح.",
+          "createdAt": "2026-11-17T08:15:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "lead-303",
+      "name": "م. ياسر باوزير",
+      "organization": "شبكة تواصل الحديثة",
+      "email": "yasser@tawasul-net.ye",
+      "phone": "+967770554433",
+      "country": "اليمن",
+      "city": "عدن",
+      "requestedService": "تدقيق وتكامل أنظمة",
+      "requestedProject": "توسعة شبكة كروتك برو لـ 8 فروع",
+      "expectedBudget": "360 USD / سنوياً",
+      "expectedTimeline": "أسبوعان",
+      "details": "نريد الانتقال إلى باقة المؤسسات الشبكية وربط 8 أجهزة نقاط بيع.",
+      "source": "consultation_request",
+      "stage": "تم التواصل",
+      "assigneeId": "u-sales",
+      "assigneeName": "سارة القحطاني",
+      "whatsappNotificationStatus": "failed",
+      "createdAt": "2026-11-16T09:30:00.000Z",
+      "updatedAt": "2026-11-16T14:20:00.000Z",
+      "activities": [
+        {
+          "id": "act-4",
+          "type": "notification_log",
+          "author": "النظام",
+          "summary": "حُفظ الطلب في قاعدة البيانات؛ تعذر إرسال تنبيه واتساب التلقائي وتم تسجيل الخطأ للمتابعة.",
+          "createdAt": "2026-11-16T09:30:00.000Z"
+        },
+        {
+          "id": "act-5",
+          "type": "call",
+          "author": "سارة القحطاني",
+          "summary": "مكالمة هاتفية مع العميل لتأكيد عدد الأجهزة المطلوبة.",
+          "createdAt": "2026-11-16T14:20:00.000Z"
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "tsk-1",
+      "leadId": "lead-301",
+      "leadName": "عبدالرحمن الشمري — روافد للنقل",
+      "title": "إرسال العرض الفني والمالي النهائي ومراجعة بنود SLA",
+      "assigneeName": "سارة القحطاني",
+      "dueDate": "2026-11-18",
+      "completed": false
+    },
+    {
+      "id": "tsk-2",
+      "leadId": "lead-302",
+      "leadName": "د. نورة الحربي — مجمع نبض",
+      "title": "جدولة جلسة تعريفية لمدة 20 دقيقة لمنصة كيان AI",
+      "assigneeName": "سارة القحطاني",
+      "dueDate": "2026-11-18",
+      "completed": false
+    }
+  ],
+  "users": [
+    {
+      "id": "u-owner",
+      "name": "أ. عبدالله الكبودي",
+      "email": "owner@kayansoft.sa",
+      "role": "owner",
+      "active": true,
+      "mfaEnabled": true,
+      "allowedProductIds": [],
+      "lastLoginAt": "2026-11-17T10:00:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    },
+    {
+      "id": "u-org",
+      "name": "م. طارق المنصور",
+      "email": "manager@kayansoft.sa",
+      "role": "org_manager",
+      "active": true,
+      "mfaEnabled": true,
+      "allowedProductIds": [],
+      "lastLoginAt": "2026-11-17T09:15:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    },
+    {
+      "id": "u-prod",
+      "name": "م. خالد السبيعي",
+      "email": "products@kayansoft.sa",
+      "role": "product_manager",
+      "active": true,
+      "mfaEnabled": true,
+      "allowedProductIds": [],
+      "lastLoginAt": "2026-11-16T17:40:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    },
+    {
+      "id": "u-sub",
+      "name": "فهد الدوسري",
+      "email": "subscriptions@kayansoft.sa",
+      "role": "subscription_manager",
+      "active": true,
+      "mfaEnabled": true,
+      "allowedProductIds": [
+        "prod-krotak-pro",
+        "prod-kayan-ai",
+        "prod-qatshe"
+      ],
+      "lastLoginAt": "2026-11-17T08:50:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    },
+    {
+      "id": "u-acc",
+      "name": "أمل العتيبي",
+      "email": "finance@kayansoft.sa",
+      "role": "accountant",
+      "active": true,
+      "mfaEnabled": true,
+      "allowedProductIds": [],
+      "lastLoginAt": "2026-11-16T15:10:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    },
+    {
+      "id": "u-site",
+      "name": "م. ريم العبدالله",
+      "email": "site@kayansoft.sa",
+      "role": "site_manager",
+      "active": true,
+      "mfaEnabled": false,
+      "allowedProductIds": [],
+      "lastLoginAt": "2026-11-17T09:30:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    },
+    {
+      "id": "u-editor",
+      "name": "ليلى الزهراني",
+      "email": "editor@kayansoft.sa",
+      "role": "content_editor",
+      "active": true,
+      "mfaEnabled": false,
+      "allowedProductIds": [],
+      "lastLoginAt": "2026-11-15T13:20:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    },
+    {
+      "id": "u-sales",
+      "name": "سارة القحطاني",
+      "email": "sales@kayansoft.sa",
+      "role": "sales_rep",
+      "active": true,
+      "mfaEnabled": false,
+      "allowedProductIds": [],
+      "lastLoginAt": "2026-11-17T08:25:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    },
+    {
+      "id": "u-viewer",
+      "name": "نايف الشهري",
+      "email": "viewer@kayansoft.sa",
+      "role": "viewer",
+      "active": true,
+      "mfaEnabled": false,
+      "allowedProductIds": [],
+      "lastLoginAt": "2026-11-14T11:00:00.000Z",
+      "passwordHash": "7f85e17d2f1995fbf734be8a7a0c7766640ae767f74f977a11154af7c05d6e52"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "aud-1",
+      "timestamp": "2026-11-17T10:20:00.000Z",
+      "actorId": "system",
+      "actorName": "موصل كيان AI",
+      "actorRole": "owner",
+      "action": "مزامنة دورية مع Stripe وPostgreSQL RLS",
+      "module": "التكاملات",
+      "targetId": "prod-kayan-ai",
+      "targetLabel": "كيان AI",
+      "referenceId": "SYNC-AI-1020",
+      "details": "تم تحديث لقطة حالتي اشتراك دون تجاوز حدود العزل.",
+      "status": "success"
+    },
+    {
+      "id": "aud-2",
+      "timestamp": "2026-11-17T08:40:00.000Z",
+      "actorId": "system",
+      "actorName": "موصل قاتشي",
+      "actorRole": "owner",
+      "action": "تنبيه تدقيق المرحلة صفر",
+      "module": "التكاملات",
+      "targetId": "prod-qatshe",
+      "targetLabel": "قاتشي",
+      "referenceId": "AUD-QAT-0840",
+      "details": "رُصد اعتماد محتمل على مخزن مزامنة محلي؛ التعديلات موقوفة حتى اعتماد PostgreSQL الإنتاجي.",
+      "status": "success"
+    },
+    {
+      "id": "aud-3",
+      "timestamp": "2026-11-16T15:30:00.000Z",
+      "actorId": "u-sales",
+      "actorName": "سارة القحطاني",
+      "actorRole": "sales_rep",
+      "action": "تحديث مرحلة عميل وإضافة عرض سعر",
+      "module": "العملاء وCRM",
+      "targetId": "lead-301",
+      "targetLabel": "عبدالرحمن الشمري",
+      "referenceId": "CRM-Q-301",
+      "details": "المرحلة: إعداد عرض السعر · القيمة: 21,500 USD",
+      "status": "success"
+    }
+  ],
+  "syncLogs": [
+    {
+      "id": "syn-1",
+      "productId": "prod-kayan-ai",
+      "productName": "كيان AI",
+      "trigger": "scheduled",
+      "status": "success",
+      "recordsSynced": 2,
+      "message": "مزامنة ناجحة عبر واجهة التكامل المعتمدة ومصدر Stripe.",
+      "timestamp": "2026-11-17T10:20:00.000Z"
+    },
+    {
+      "id": "syn-2",
+      "productId": "prod-krotak-pro",
+      "productName": "كروتك برو",
+      "trigger": "scheduled",
+      "status": "success",
+      "recordsSynced": 3,
+      "message": "تحديث حالات الوصول عبر Krotic Admin accountAccess API.",
+      "timestamp": "2026-11-17T10:15:00.000Z"
+    },
+    {
+      "id": "syn-3",
+      "productId": "prod-qatshe",
+      "productName": "قاتشي",
+      "trigger": "scheduled",
+      "status": "warning",
+      "recordsSynced": 1,
+      "message": "مقروء فقط: بانتظار إغلاق التدقيق الأمني لمخزن المزامنة.",
+      "timestamp": "2026-11-17T08:40:00.000Z"
+    },
+    {
+      "id": "syn-4",
+      "productId": "prod-almothfin",
+      "productName": "نظام الموظفين",
+      "trigger": "scheduled",
+      "status": "warning",
+      "recordsSynced": 1,
+      "message": "مقيد الخصوصية: بيانات الرواتب والسلف محجوبة عن المزامنة.",
+      "timestamp": "2026-11-17T07:10:00.000Z"
+    }
+  ],
+  "processedWebhookNonces": [],
+  "backupsMeta": [
+    {
+      "id": "bkp-init-20261117",
+      "createdAt": "2026-11-17T06:00:00.000Z",
+      "createdBy": "النسخ التلقائي المجدول",
+      "reason": "نسخة يومية تلقائية لبيانات المنصة المركزية وCMS وCRM",
+      "sizeBytes": 48200,
+      "checksum": "sha256-9a41f0c8e21b"
+    }
+  ],
+  "websiteSettings": {
+    "orgName": "مؤسسة كيان سوفت للبرمجيات والحلول الذكية",
+    "tagline": "هندسة الأنظمة المستقلة والحلول السحابية للمؤسسات",
+    "email": "info@kayansoft.sa",
+    "phone": "+966 11 400 8820",
+    "whatsappNumber": "+966504008820",
+    "address": "الرياض — حي العليا، طريق الملك فهد، المملكة العربية السعودية",
+    "socialLinks": {
+      "github": "https://github.com/KAYANSTOR",
+      "linkedin": "https://linkedin.com/company/kayan-soft",
+      "x": "https://x.com/kayansoft_sa"
+    },
+    "announcementBanner": "متاح الآن: حجز استشارات تدقيق وتكامل الأنظمة السحابية للربع الأول",
+    "announcementEnabled": false,
+    "primaryNavigation": [
+      {
+        "label": "الرئيسية",
+        "slug": "/"
+      },
+      {
+        "label": "الخدمات",
+        "slug": "#services"
+      },
+      {
+        "label": "معرض الأعمال",
+        "slug": "#portfolio"
+      },
+      {
+        "label": "المدونة",
+        "slug": "#blog"
+      },
+      {
+        "label": "من نحن",
+        "slug": "#about"
+      }
+    ],
+    "footerLegalNote": "© 2026 مؤسسة كيان سوفت للبرمجيات والحلول الذكية. جميع الحقوق محفوظة.",
+    "robotsTxt": "User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: https://kayansoft.sa/sitemap.xml"
+  },
+  "orgSettings": {
+    "companyName": "مؤسسة كيان سوفت للبرمجيات والحلول الذكية",
+    "legalEntity": "Kayan Soft for Software & Smart Solutions",
+    "defaultCurrency": "USD",
+    "retentionDaysAudit": 365,
+    "retentionDaysBackups": 90,
+    "mfaRequiredForSensitiveRoles": true,
+    "requirePreviewBeforePublish": true,
+    "crmStages": [
+      "جديد",
+      "تمت المراجعة",
+      "تم التواصل",
+      "اجتماع أو استشارة",
+      "إعداد عرض السعر",
+      "تم إرسال العرض",
+      "تفاوض",
+      "تم الفوز بالعميل",
+      "لم يتم الاتفاق",
+      "مؤرشف"
+    ],
+    "exchangeRates": [
+      {
+        "currency": "USD",
+        "rateToUSD": 1,
+        "referenceDate": "2026-11-17",
+        "source": "المرجع الأساسي"
+      },
+      {
+        "currency": "SAR",
+        "rateToUSD": 0.2666667,
+        "referenceDate": "2026-11-17",
+        "source": "البنك المركزي السعودي (ثابت 3.75)"
+      },
+      {
+        "currency": "YER",
+        "rateToUSD": 0.0018868,
+        "referenceDate": "2026-11-17",
+        "source": "سعر الصرف المعتمد 530 YER/USD"
+      }
+    ]
+  }
+}
