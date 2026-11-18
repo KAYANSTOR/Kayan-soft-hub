@@ -10,6 +10,7 @@ const BACKUPS_DIR = path.join(DATA_DIR, 'backups');
 
 export class HubRepository {
   private ensureDirs(): void {
+    if (process.env.VERCEL) return;
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
     }
@@ -22,6 +23,7 @@ export class HubRepository {
     this.ensureDirs();
     if (!fs.existsSync(STORE_FILE)) {
       const initial = createInitialHubState();
+      if (process.env.VERCEL) return initial;
       this.writeState(initial);
       // Also write initial baseline backup file if missing
       const initBackupPath = path.join(BACKUPS_DIR, `${initial.backupsMeta[0].id}.json`);
@@ -35,6 +37,9 @@ export class HubRepository {
   }
 
   public writeState(state: HubStateSnapshot): void {
+    if (process.env.VERCEL) {
+      throw new Error('Persistent writes require DATABASE_URL; Vercel Function filesystem is read-only.');
+    }
     this.ensureDirs();
     const tmpFile = `${STORE_FILE}.${process.pid}.${Date.now()}.tmp`;
     fs.writeFileSync(tmpFile, JSON.stringify(state, null, 2), 'utf8');
