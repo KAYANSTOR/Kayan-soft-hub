@@ -1,6 +1,7 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
 import { hubService, ServiceError, type SafeStaffUser } from '../services/hubService.js';
 import type { UserRole } from '../../shared/types.js';
+import { hubRepository } from '../repositories/hubRepository.js';
 
 declare global {
   namespace Express {
@@ -56,6 +57,7 @@ function handle(fn: (req: Request, res: Response) => unknown | Promise<unknown>)
   return async (req: Request, res: Response) => {
     try {
       const data = await fn(req, res);
+      await hubRepository.flush();
       if (!res.headersSent) {
         res.json(data);
       }
@@ -68,6 +70,13 @@ function handle(fn: (req: Request, res: Response) => unknown | Promise<unknown>)
       res.status(500).json({ error: 'حدث خطأ داخلي في الخادم.' });
     }
   };
+}
+
+function setSessionCookie(res: Response, token: string): void {
+  res.setHeader(
+    'Set-Cookie',
+    `${COOKIE_NAME}=${encodeURIComponent(token)}; Max-Age=${60 * 60 * 24 * 7}; Path=/; HttpOnly; SameSite=Lax`,
+  );
 }
 
 export function createApiRouter(): express.Router {
@@ -99,12 +108,7 @@ export function createApiRouter(): express.Router {
     handle((req, res) => {
       const { email, password } = req.body as { email: string; password: string };
       const { user, token } = hubService.authenticate(email || '', password || '');
-      res.cookie(COOKIE_NAME, token, {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-      });
+      setSessionCookie(res, token);
       return { user };
     }),
   );
@@ -114,18 +118,13 @@ export function createApiRouter(): express.Router {
     handle((req, res) => {
       const { role } = req.body as { role: UserRole };
       const { user, token } = hubService.quickSessionForRole(role);
-      res.cookie(COOKIE_NAME, token, {
-        httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-      });
+      setSessionCookie(res, token);
       return { user };
     }),
   );
 
   router.post('/auth/logout', (_req, res) => {
-    res.clearCookie(COOKIE_NAME, { path: '/' });
+    res.setHeader('Set-Cookie', `${COOKIE_NAME}=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax`);
     res.json({ ok: true });
   });
 
