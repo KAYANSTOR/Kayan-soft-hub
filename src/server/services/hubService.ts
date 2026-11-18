@@ -33,6 +33,7 @@ import {
   computeWebhookSignature,
   executeConnectorSubscriptionAction,
   runProductHealthAndSync,
+  syncKayanAiProduct,
   verifyWebhookHmac,
 } from '../connectors/productConnectors';
 import { hubRepository } from '../repositories/hubRepository';
@@ -348,21 +349,42 @@ export class HubService {
     });
   }
 
-  public syncProduct(user: SafeStaffUser, productId: string, trigger: 'manual' | 'scheduled' = 'manual') {
+  public async syncProduct(user: SafeStaffUser, productId: string, trigger: 'manual' | 'scheduled' = 'manual') {
     this.requirePerm(user, 'integrations.manage');
     if (!canAccessProduct(user, productId)) {
       throw new ServiceError(403, 'لا تملك صلاحية مزامنة هذا المنتج.');
     }
+
+    const current = hubRepository.readState();
+    const currentProduct = current.products.find((p) => p.id === productId);
+    if (!currentProduct) throw new ServiceError(404, 'المنتج غير موجود.');
+    const remoteSync = currentProduct.code === 'kayan-ai'
+      ? await syncKayanAiProduct(currentProduct, current.subscriptions)
+      : null;
+
     return hubRepository.updateState((draft) => {
       const product = draft.products.find((p) => p.id === productId);
       if (!product) throw new ServiceError(404, 'المنتج غير موجود.');
-      const res = runProductHealthAndSync(product, draft.subscriptions);
+      const res = remoteSync?.result ?? runProductHealthAndSync(product, draft.subscriptions);
       const nowIso = new Date().toISOString();
       product.lastSyncAt = nowIso;
       product.syncStatus = res.status;
       product.connectorHealth = res.connectorHealth;
+      if (remoteSync) {
+        for (const update of remoteSync.updates) {
+          const subscription = draft.subscriptions.find((item) => item.id === update.subscriptionId);
+          if (!subscription) continue;
+          subscription.status = update.status;
+          subscription.planId = update.planId;
+          subscription.planName = update.planName;
+          if (update.startDate) subscription.startDate = update.startDate;
+          if (update.endDate) subscription.endDate = update.endDate;
+          subscription.sourceOfTruth = 'Kayan AI API → Stripe + PostgreSQL';
+          subscription.lastSyncedAt = nowIso;
+        }
+      }
       for (const sub of draft.subscriptions) {
-        if (sub.productId === product.id) {
+        if (sub.productId === product.id && !remoteSync) {
           sub.lastSyncedAt = nowIso;
         }
       }

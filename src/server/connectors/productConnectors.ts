@@ -6,6 +6,7 @@ import type {
   SubscriptionStatus,
 } from '../../shared/types';
 import { validateSubscriptionAction } from '../../shared/domain';
+import { syncKayanAiProduct, type KayanAiSyncOutcome } from './kayanAiConnector';
 
 export interface ConnectorSyncResult {
   status: 'success' | 'warning' | 'failed';
@@ -21,6 +22,9 @@ export interface ConnectorActionResult {
   newEndDate?: string;
   message: string;
 }
+
+export { syncKayanAiProduct };
+export type { KayanAiSyncOutcome };
 
 /**
  * Independent Product Connector Layer (Section 15.3).
@@ -72,6 +76,14 @@ export function executeConnectorSubscriptionAction(
   subscription: SubscriptionRecord,
   action: SubscriptionActionType,
 ): ConnectorActionResult {
+  if (product.code === 'kayan-ai') {
+    return {
+      ok: false,
+      message:
+        'موصل Kayan AI للقراءة فقط حاليًا. لا يجوز تغيير الاشتراك محليًا؛ يجب تنفيذ التجديد أو الإيقاف من Stripe/Kayan AI بعد اعتماد عقد تغيير رسمي.',
+    };
+  }
+
   if (product.auditStatus === 'needs_audit') {
     return {
       ok: false,
