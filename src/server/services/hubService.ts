@@ -7,7 +7,7 @@ import {
   isDuplicateLead,
   isWebhookTimestampFresh,
   validateSafeSectionContent,
-} from '../../shared/domain';
+} from '../../shared/domain.js';
 import type {
   AuditLogEntry,
   CmsArticle,
@@ -28,7 +28,7 @@ import type {
   SubscriptionActionType,
   UserRole,
   WebsiteSettings,
-} from '../../shared/types';
+} from '../../shared/types.js';
 import {
   computeWebhookSignature,
   executeConnectorSubscriptionAction,

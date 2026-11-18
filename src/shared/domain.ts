@@ -12,7 +12,7 @@ import type {
   SubscriptionActionType,
   SubscriptionStatus,
   UserRole,
-} from './types';
+} from './types.js';
 
 export const ROLE_LABELS_AR: Record<UserRole, string> = {
   owner: 'مالك المؤسسة',
