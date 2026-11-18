@@ -1,6 +1,6 @@
 import express, { type NextFunction, type Request, type Response } from 'express';
-import { hubService, ServiceError, type SafeStaffUser } from '../services/hubService';
-import type { UserRole } from '../../shared/types';
+import { hubService, ServiceError, type SafeStaffUser } from '../services/hubService.js';
+import type { UserRole } from '../../shared/types.js';
 
 declare global {
   namespace Express {

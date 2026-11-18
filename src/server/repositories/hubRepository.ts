@@ -1,8 +1,8 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { BackupSnapshot, HubStateSnapshot } from '../../shared/types';
-import { createInitialHubState } from './seedData';
+import type { BackupSnapshot, HubStateSnapshot } from '../../shared/types.js';
+import { createInitialHubState } from './seedData.js';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const STORE_FILE = path.join(DATA_DIR, 'kayan-hub-store.json');

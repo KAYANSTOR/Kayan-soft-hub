@@ -1,7 +1,7 @@
 import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
-import { createApiRouter } from './controllers/apiRouter';
+import { createApiRouter } from './controllers/apiRouter.js';
 
 export function createApp() {
   const app = express();

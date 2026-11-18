@@ -35,9 +35,9 @@ import {
   runProductHealthAndSync,
   syncKayanAiProduct,
   verifyWebhookHmac,
-} from '../connectors/productConnectors';
-import { hubRepository } from '../repositories/hubRepository';
-import { hashPassword } from '../repositories/seedData';
+} from '../connectors/productConnectors.js';
+import { hubRepository } from '../repositories/hubRepository.js';
+import { hashPassword } from '../repositories/seedData.js';
 
 const SESSION_SECRET = process.env.KAYAN_SESSION_SECRET || 'kayan-soft-hub-dev-hmac-secret-2026';
 const WEBHOOK_SECRET = process.env.KAYAN_WEBHOOK_SECRET || 'kayan-webhook-signing-secret-2026';

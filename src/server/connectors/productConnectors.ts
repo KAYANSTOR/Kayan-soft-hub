@@ -4,9 +4,9 @@ import type {
   SubscriptionActionType,
   SubscriptionRecord,
   SubscriptionStatus,
-} from '../../shared/types';
-import { validateSubscriptionAction } from '../../shared/domain';
-import { syncKayanAiProduct, type KayanAiSyncOutcome } from './kayanAiConnector';
+} from '../../shared/types.js';
+import { validateSubscriptionAction } from '../../shared/domain.js';
+import { syncKayanAiProduct, type KayanAiSyncOutcome } from './kayanAiConnector.js';
 
 export interface ConnectorSyncResult {
   status: 'success' | 'warning' | 'failed';

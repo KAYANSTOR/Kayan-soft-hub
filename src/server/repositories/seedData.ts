@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import type { HubStateSnapshot } from '../../shared/types';
+import type { HubStateSnapshot } from '../../shared/types.js';
 
 export function hashPassword(password: string): string {
   const salt = 'kayan-soft-hub-v1';
