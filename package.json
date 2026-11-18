@@ -11,7 +11,8 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "db:migrate": "tsx scripts/migrate-json-to-postgres.ts",
-    "db:verify": "tsx scripts/verify-postgres-migration.ts"
+    "db:verify": "tsx scripts/verify-postgres-migration.ts",
+    "db:reset-production": "tsx scripts/reset-postgres-production.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
