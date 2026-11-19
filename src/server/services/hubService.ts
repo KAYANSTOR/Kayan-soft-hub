@@ -34,6 +34,7 @@ import {
   executeConnectorSubscriptionAction,
   runProductHealthAndSync,
   syncKayanAiProduct,
+  syncVercelProduct,
   verifyWebhookHmac,
 } from '../connectors/productConnectors.js';
 import { hubRepository } from '../repositories/hubRepository.js';
@@ -360,18 +361,24 @@ export class HubService {
     if (!currentProduct) throw new ServiceError(404, 'المنتج غير موجود.');
     const remoteSync = currentProduct.code === 'kayan-ai'
       ? await syncKayanAiProduct(currentProduct, current.subscriptions)
-      : null;
+      : ['krotak-pro', 'krotic-admin', 'almothfin', 'kayan-soft'].includes(currentProduct.code)
+        ? await syncVercelProduct(currentProduct, current.subscriptions)
+        : null;
+    const syncOutcome = remoteSync ?? {
+      result: await runProductHealthAndSync(currentProduct, current.subscriptions),
+      updates: [],
+    };
 
     return hubRepository.updateState((draft) => {
       const product = draft.products.find((p) => p.id === productId);
       if (!product) throw new ServiceError(404, 'المنتج غير موجود.');
-      const res = remoteSync?.result ?? runProductHealthAndSync(product, draft.subscriptions);
+      const res = syncOutcome.result;
       const nowIso = new Date().toISOString();
       product.lastSyncAt = nowIso;
       product.syncStatus = res.status;
       product.connectorHealth = res.connectorHealth;
-      if (remoteSync) {
-        for (const update of remoteSync.updates) {
+      if (syncOutcome.updates.length > 0) {
+        for (const update of syncOutcome.updates) {
           const subscription = draft.subscriptions.find((item) => item.id === update.subscriptionId);
           if (!subscription) continue;
           subscription.status = update.status;
@@ -379,12 +386,14 @@ export class HubService {
           subscription.planName = update.planName;
           if (update.startDate) subscription.startDate = update.startDate;
           if (update.endDate) subscription.endDate = update.endDate;
-          subscription.sourceOfTruth = 'Kayan AI API → Stripe + PostgreSQL';
+          subscription.sourceOfTruth = product.code === 'kayan-ai'
+            ? 'Kayan AI API → Stripe + PostgreSQL'
+            : `${product.name} API`;
           subscription.lastSyncedAt = nowIso;
         }
       }
       for (const sub of draft.subscriptions) {
-        if (sub.productId === product.id && !remoteSync) {
+        if (sub.productId === product.id && syncOutcome.updates.length === 0) {
           sub.lastSyncedAt = nowIso;
         }
       }

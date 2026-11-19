@@ -7,6 +7,7 @@ import type {
 } from '../../shared/types.js';
 import { validateSubscriptionAction } from '../../shared/domain.js';
 import { syncKayanAiProduct, type KayanAiSyncOutcome } from './kayanAiConnector.js';
+import { syncVercelProduct, type VercelProductSyncOutcome } from './vercelProductConnector.js';
 
 export interface ConnectorSyncResult {
   status: 'success' | 'warning' | 'failed';
@@ -25,15 +26,22 @@ export interface ConnectorActionResult {
 
 export { syncKayanAiProduct };
 export type { KayanAiSyncOutcome };
+export { syncVercelProduct };
+export type { VercelProductSyncOutcome };
 
 /**
  * Independent Product Connector Layer (Section 15.3).
  * Never touches product databases directly; enforces product-specific boundaries and audit gates.
  */
-export function runProductHealthAndSync(
+export async function runProductHealthAndSync(
   product: EnterpriseProduct,
   subscriptions: SubscriptionRecord[],
-): ConnectorSyncResult {
+): Promise<ConnectorSyncResult> {
+  if (['krotak-pro', 'krotic-admin', 'almothfin', 'kayan-soft'].includes(product.code)) {
+    const remote = await syncVercelProduct(product, subscriptions);
+    return remote.result;
+  }
+
   const count = subscriptions.filter((s) => s.productId === product.id).length;
 
   if (!product.serviceActive) {
