@@ -33,6 +33,7 @@ import {
   computeWebhookSignature,
   executeConnectorSubscriptionAction,
   runProductHealthAndSync,
+  executeVercelProductCommand,
   syncKayanAiProduct,
   syncVercelProduct,
   verifyWebhookHmac,
@@ -413,6 +414,20 @@ export class HubService {
       );
       return { product, syncEntry };
     });
+  }
+
+  public async executeProductCommand(user: SafeStaffUser, productId: string, command: string, payload: Record<string, unknown> = {}) {
+    this.requirePerm(user, 'integrations.manage');
+    const product = hubRepository.readState().products.find((item) => item.id === productId);
+    if (!product) throw new ServiceError(404, 'المنتج غير موجود.');
+    if (!canAccessProduct(user, product.id)) throw new ServiceError(403, 'لا تملك صلاحية إدارة هذا التكامل.');
+    if (command !== 'revalidate') throw new ServiceError(400, 'الأمر غير مدعوم من طبقة التكامل الحالية.');
+    const result = await executeVercelProductCommand(product, command, payload);
+    hubRepository.updateState((draft) => {
+      draft.auditLogs.unshift(makeAudit(user, `أمر تكامل: ${command}`, 'التكاملات', product.id, product.name, result.message, result.status === 'success' ? 'success' : 'failed'));
+    });
+    if (result.status === 'failed') throw new ServiceError(502, result.message);
+    return result;
   }
 
   // --- Subscriptions ---

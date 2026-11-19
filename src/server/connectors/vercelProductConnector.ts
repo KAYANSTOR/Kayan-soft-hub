@@ -1,4 +1,5 @@
 import type { EnterpriseProduct, SubscriptionRecord, SubscriptionStatus } from '../../shared/types.js';
+import crypto from 'node:crypto';
 
 const DEFAULT_TIMEOUT_MS = 8_000;
 
@@ -34,21 +35,21 @@ const CONFIG: Record<ConnectorCode, ConnectorConfig> = {
     urlEnv: 'KROTAK_API_URL',
     pathEnv: 'KROTAK_HEALTH_PATH',
     defaultUrl: 'https://krotak-pro.vercel.app',
-    defaultPath: '/api/health',
+    defaultPath: '/api/integration/health',
     apiExpected: true,
   },
   'krotic-admin': {
     urlEnv: 'KROTIC_ADMIN_API_URL',
     pathEnv: 'KROTIC_ADMIN_HEALTH_PATH',
     defaultUrl: 'https://krotic-admin-app-wine.vercel.app',
-    defaultPath: '/api/health',
+    defaultPath: '/api/integration/health',
     apiExpected: true,
   },
   almothfin: {
     urlEnv: 'ALMOTHFIN_API_URL',
     pathEnv: 'ALMOTHFIN_HEALTH_PATH',
     defaultUrl: 'https://almothfin-seven.vercel.app',
-    defaultPath: '/api/health',
+    defaultPath: '/api/integration/health',
     apiExpected: true,
   },
   'kayan-soft': {
@@ -182,4 +183,19 @@ export async function syncVercelProduct(
   } finally {
     clearTimeout(timeout);
   }
+}
+
+export async function executeVercelProductCommand(product: EnterpriseProduct, command: string, payload: Record<string, unknown> = {}) {
+  const config = configFor(product);
+  if (!config) return { status: 'warning' as const, message: `لا يوجد موصل Vercel للمنتج ${product.code}.` };
+  const secret = process.env.HUB_INTEGRATION_SECRET?.trim();
+  if (!secret) return { status: 'failed' as const, message: 'HUB_INTEGRATION_SECRET غير مهيأ في Hub.' };
+  const baseUrl = textEnv(config.urlEnv, config.defaultUrl).replace(/\/$/, '');
+  const body = JSON.stringify({ command, ...payload, requestedAt: new Date().toISOString() });
+  const signature = crypto.createHmac('sha256', secret).update(body).digest('hex');
+  const response = await fetch(`${baseUrl}/api/integration/command`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'x-hub-signature': signature }, body,
+  });
+  if (!response.ok) return { status: 'failed' as const, message: `رفض ${product.name} الأمر ${command}: HTTP ${response.status}.` };
+  return { status: 'success' as const, message: `قبل ${product.name} الأمر ${command}.` };
 }

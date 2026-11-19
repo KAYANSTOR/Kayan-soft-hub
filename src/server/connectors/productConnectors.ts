@@ -7,7 +7,7 @@ import type {
 } from '../../shared/types.js';
 import { validateSubscriptionAction } from '../../shared/domain.js';
 import { syncKayanAiProduct, type KayanAiSyncOutcome } from './kayanAiConnector.js';
-import { syncVercelProduct, type VercelProductSyncOutcome } from './vercelProductConnector.js';
+import { executeVercelProductCommand, syncVercelProduct, type VercelProductSyncOutcome } from './vercelProductConnector.js';
 
 export interface ConnectorSyncResult {
   status: 'success' | 'warning' | 'failed';
@@ -27,6 +27,7 @@ export interface ConnectorActionResult {
 export { syncKayanAiProduct };
 export type { KayanAiSyncOutcome };
 export { syncVercelProduct };
+export { executeVercelProductCommand };
 export type { VercelProductSyncOutcome };
 
 /**

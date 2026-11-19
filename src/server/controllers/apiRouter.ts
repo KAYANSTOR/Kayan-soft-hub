@@ -85,6 +85,20 @@ export function createApiRouter(): express.Router {
   router.use(attachUser);
 
   // Public Website & SEO Routes
+  router.use('/public', (req, res, next) => {
+    const allowedOrigin = process.env.KAYAN_WEBSITE_ORIGIN || 'https://kayan-soft.online';
+    if (req.headers.origin === allowedOrigin) {
+      res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+      res.setHeader('Vary', 'Origin');
+    }
+    if (req.method === 'OPTIONS') {
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      res.status(204).end();
+      return;
+    }
+    next();
+  });
   router.get(
     '/public/site',
     handle(() => hubService.getPublicWebsiteData()),
@@ -159,6 +173,10 @@ export function createApiRouter(): express.Router {
   router.post(
     '/products/:id/sync',
     handle((req) => hubService.syncProduct(req.currentUser!, String(req.params.id), 'manual')),
+  );
+  router.post(
+    '/products/:id/command',
+    handle((req) => hubService.executeProductCommand(req.currentUser!, String(req.params.id), String(req.body?.command || ''), req.body?.payload || {})),
   );
 
   // Subscribers & Subscriptions
