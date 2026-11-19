@@ -224,11 +224,11 @@ export function aggregatePaymentsSafely(
  */
 export function isDuplicateLead(
   existingLeads: CrmLead[],
-  incoming: { email: string; phone: string; requestedService: string },
+  incoming: { email?: string; phone: string; requestedService: string },
   nowMs: number,
   windowMinutes = 30,
 ): boolean {
-  const normalizedEmail = incoming.email.trim().toLowerCase();
+  const normalizedEmail = incoming.email?.trim().toLowerCase() || '';
   const normalizedPhone = incoming.phone.replace(/\s+/g, '');
   const normalizedService = incoming.requestedService.trim();
   const windowMs = windowMinutes * 60 * 1000;

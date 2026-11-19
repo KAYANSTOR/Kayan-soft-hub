@@ -315,6 +315,7 @@ export interface CrmTask {
 
 export interface CrmLead {
   id: string;
+  idempotencyKey?: string;
   name: string;
   organization: string;
   email: string;
@@ -327,6 +328,7 @@ export interface CrmLead {
   expectedTimeline: string;
   details: string;
   source: LeadSource;
+  sourcePage?: string;
   stage: string;
   assigneeId: string;
   assigneeName: string;

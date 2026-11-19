@@ -159,7 +159,7 @@ export const hubApi = {
   submitPublicLead: (payload: {
     name: string;
     organization?: string;
-    email: string;
+    email?: string;
     phone: string;
     country?: string;
     city?: string;
@@ -169,7 +169,8 @@ export const hubApi = {
     expectedTimeline?: string;
     details: string;
     source?: CrmLead['source'];
-    simulateWhatsappFailure?: boolean;
+    sourcePage?: string;
+    idempotencyKey?: string;
   }) => request<CrmLead>('/api/public/leads', { method: 'POST', body: JSON.stringify(payload) }),
 
   updateLead: (

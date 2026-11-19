@@ -856,7 +856,7 @@ export class HubService {
   public submitPublicLead(input: {
     name: string;
     organization?: string;
-    email: string;
+    email?: string;
     phone: string;
     country?: string;
     city?: string;
@@ -866,17 +866,33 @@ export class HubService {
     expectedTimeline?: string;
     details: string;
     source?: LeadSource;
-    simulateWhatsappFailure?: boolean;
+    sourcePage?: string;
+    idempotencyKey?: string;
   }) {
-    if (!input.name?.trim() || !input.email?.trim() || !input.phone?.trim() || !input.details?.trim()) {
-      throw new ServiceError(400, 'الاسم والبريد الإلكتروني ورقم الهاتف وتفاصيل الطلب حقول إلزامية.');
+    if (!input.name?.trim() || !input.phone?.trim() || !input.requestedService?.trim() || !input.details?.trim()) {
+      throw new ServiceError(400, 'الاسم ورقم الهاتف ونوع الخدمة وتفاصيل الطلب حقول إلزامية.');
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email.trim())) {
+    if (input.email?.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email.trim())) {
       throw new ServiceError(400, 'صيغة البريد الإلكتروني غير صالحة.');
+    }
+    if (!/^\+?[\d\s().-]{7,25}$/.test(input.phone.trim()) || input.phone.replace(/\D/g, '').length < 7) {
+      throw new ServiceError(400, 'صيغة رقم الهاتف غير صالحة.');
+    }
+    const bounded = (value: string | undefined, max: number) => value?.trim().slice(0, max) || '';
+    const sourcePage = bounded(input.sourcePage, 120);
+    if (sourcePage && !/^\/(contact|request)$/.test(sourcePage)) {
+      throw new ServiceError(400, 'صفحة المصدر غير صالحة.');
+    }
+    const idempotencyKey = bounded(input.idempotencyKey, 120);
+    if (idempotencyKey && !/^[A-Za-z0-9._:-]{8,120}$/.test(idempotencyKey)) {
+      throw new ServiceError(400, 'مفتاح منع التكرار غير صالح.');
     }
 
     return hubRepository.updateState((draft) => {
       const nowMs = Date.now();
+      if (idempotencyKey && draft.leads.some((lead) => lead.idempotencyKey === idempotencyKey)) {
+        throw new ServiceError(409, 'تمت معالجة محاولة الإرسال هذه مسبقًا.');
+      }
       if (
         isDuplicateLead(
           draft.leads,
@@ -889,13 +905,12 @@ export class HubService {
 
       const defaultSales = draft.users.find((u) => u.role === 'sales_rep' && u.active) || draft.users[0];
       const nowIso = new Date(nowMs).toISOString();
-      const whatsappStatus = input.simulateWhatsappFailure ? 'failed' : 'sent';
-
       const lead: CrmLead = {
         id: `lead-${nowMs}`,
+        ...(idempotencyKey ? { idempotencyKey } : {}),
         name: input.name.trim(),
         organization: input.organization?.trim() || 'غير محدد',
-        email: input.email.trim(),
+        email: input.email?.trim().toLowerCase() || '',
         phone: input.phone.trim(),
         country: input.country?.trim() || 'السعودية',
         city: input.city?.trim() || 'غير محدد',
@@ -905,10 +920,11 @@ export class HubService {
         expectedTimeline: input.expectedTimeline?.trim() || 'مرن',
         details: input.details.trim(),
         source: input.source || 'project_request_form',
+        ...(sourcePage ? { sourcePage } : {}),
         stage: draft.orgSettings.crmStages[0] || 'جديد',
         assigneeId: defaultSales.id,
         assigneeName: defaultSales.name,
-        whatsappNotificationStatus: whatsappStatus,
+        whatsappNotificationStatus: 'not_configured',
         createdAt: nowIso,
         updatedAt: nowIso,
         activities: [
@@ -917,9 +933,7 @@ export class HubService {
             type: 'notification_log',
             author: 'نظام استقبال الطلبات',
             summary:
-              whatsappStatus === 'failed'
-                ? 'تم حفظ الطلب في قاعدة البيانات الدائمة؛ تعذر إرسال تنبيه واتساب وسُجل الإخفاق دون فقدان البيانات.'
-                : 'تم حفظ الطلب في قاعدة البيانات الدائمة وإرسال تنبيه للمسؤول.',
+              'تم حفظ الطلب في قاعدة البيانات الدائمة. لا توجد قناة إشعار تلقائية مهيأة حاليًا.',
             createdAt: nowIso,
           },
         ],
@@ -933,7 +947,7 @@ export class HubService {
           'العملاء وCRM',
           lead.id,
           `${lead.name} — ${lead.organization}`,
-          `المصدر: ${lead.source} · حالة إشعار واتساب: ${whatsappStatus}`,
+          `المصدر: ${lead.source}${sourcePage ? ` · الصفحة: ${sourcePage}` : ''} · حالة الإشعار: غير مهيأ`,
         ),
       );
       return lead;
